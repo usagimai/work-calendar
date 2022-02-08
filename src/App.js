@@ -1,3 +1,5 @@
+import { Routes, Route } from "react-router-dom";
+
 import "./app.scss";
 import Home from "./pages/Home";
 import Nav from "./components/nav/Nav";
@@ -10,13 +12,16 @@ import Todos from "./pages/Todos";
 function App() {
   return (
     <>
-      <Home />
-      {/* <Nav /> */}
-      {/* <Calendar /> */}
-      {/* <Projects /> */}
-      {/* <CreateProject /> */}
-      {/* <EditProject /> */}
-      {/* <Todos /> */}
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/project/" element={<Projects />} />
+        <Route path="/project/:id" element={<Projects />} />
+        <Route path="/create-project" element={<CreateProject />} />
+        <Route path="/edit-project/:id" element={<EditProject />} />
+        <Route path="/todos" element={<Todos />} />
+      </Routes>
     </>
   );
 }
