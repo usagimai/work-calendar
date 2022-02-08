@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { Confirm } from "../reusable/Confirm";
@@ -10,6 +10,10 @@ const Nav = () => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [logoutBoxOpen, setLogoutBoxOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [menu, setMenu] = useState();
+
+  const { pathname } = useLocation();
+  const path = pathname.split("/")[1];
 
   const handleLogoutBoxOpen = () => {
     setLogoutBoxOpen(true);
@@ -25,6 +29,23 @@ const Nav = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    // [檢視行事曆, 專案, 其他]
+    switch (path) {
+      case "calendar":
+        setMenu([true, false, false]);
+        break;
+      case "projects":
+      case "create-project":
+      case "edit-project":
+        setMenu([false, true, false]);
+        break;
+      case "todos":
+        setMenu([false, false, true]);
+        break;
+    }
+  }, [path]);
 
   //未登入時不顯示Nav
   if (!visible) return null;
@@ -44,15 +65,27 @@ const Nav = () => {
         <div className="nav-content">
           <div className="nav-title">Work Calendar</div>
           <div className="menu">
-            <div className="m-text pointer calendar-active">
+            <div
+              className={`m-text pointer ${
+                menu[0] ? "calendar-active" : "calendar-inactive"
+              }`}
+            >
               <Link to="/calendar">檢視行事曆</Link>
             </div>
             <div className="work-manage">
               <div className="m-text">工作管理</div>
-              <div className="m-text pointer work-inactive">
-                <Link to="/project">專案</Link>
+              <div
+                className={`m-text pointer ${
+                  menu[1] ? "work-active" : "work-inactive"
+                }`}
+              >
+                <Link to="/projects">專案</Link>
               </div>
-              <div className="m-text pointer work-inactive">
+              <div
+                className={`m-text pointer ${
+                  menu[2] ? "work-active" : "work-inactive"
+                }`}
+              >
                 <Link to="todos">其他</Link>
               </div>
             </div>
