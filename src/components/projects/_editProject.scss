@@ -1,0 +1,11 @@
+.edit-project {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+  }
+}

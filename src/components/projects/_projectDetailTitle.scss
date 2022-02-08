@@ -1,0 +1,13 @@
+.project-detail-title {
+  position: relative;
+  .l-text {
+    font-weight: 700;
+    line-height: 140%;
+  }
+  .edit-group {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+}

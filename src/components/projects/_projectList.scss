@@ -1,0 +1,25 @@
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .create:hover {
+      opacity: 0.6;
+    }
+  }
+  .create-info {
+    width: 8.2rem;
+    height: 2.6rem;
+    position: absolute;
+    padding: 0.2rem 0.5rem;
+    border: solid 0.1rem $primary-dark;
+    background: $primary-light;
+    line-height: 100%;
+  }
+  .create-info-hidden {
+    display: none;
+  }
+}

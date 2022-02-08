@@ -1,0 +1,27 @@
+.weather {
+  padding: 5rem 4rem 0 4rem;
+  display: flex;
+  gap: 4rem;
+  > div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    > div:nth-child(1) {
+      width: 8.5rem;
+      height: 8.5rem;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-items: center;
+      align-content: center;
+      background: $primary-dark;
+      border-radius: 1rem;
+      color: $bg;
+      line-height: 140%;
+    }
+  }
+  > div:nth-child(2) {
+    width: 100%;
+    align-self: center;
+  }
+}

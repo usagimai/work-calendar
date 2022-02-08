@@ -1,0 +1,18 @@
+.plan-finish-date {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  background: #c7cfb732;
+  > div {
+    padding: 1.5rem;
+  }
+  .m-text {
+    font-weight: 700;
+  }
+  > div:nth-child(3) {
+    justify-self: flex-start;
+  }
+  .s-text {
+    color: $primary-dark;
+  }
+}

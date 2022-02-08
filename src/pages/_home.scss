@@ -1,0 +1,30 @@
+.home {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: center;
+  .bg-img-1,
+  .bg-img-2 {
+    position: absolute;
+  }
+  .bg-img-1 {
+    top: 20vh;
+    left: 3vw;
+    animation: rotate 5s infinite linear;
+  }
+  .bg-img-2 {
+    top: 48vh;
+    left: -8vw;
+    animation: rotate 8s infinite linear reverse;
+  }
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

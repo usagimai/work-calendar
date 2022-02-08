@@ -1,0 +1,63 @@
+.white-container.create-white-container {
+  padding: 4rem 4rem;
+  .create-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3rem;
+    .edit-work-info {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      justify-items: flex-start;
+      row-gap: 1.5rem;
+      column-gap: 2rem;
+      > div:nth-child(2) {
+        display: flex;
+        align-items: center;
+        .m-text {
+          padding-right: 1.5rem;
+        }
+      }
+      input,
+      textarea {
+        width: 52rem;
+        padding: 0.4rem 1rem;
+        color: $font-color;
+        border: solid 0.1rem $primary-dark;
+      }
+      textarea {
+        height: 10rem;
+        resize: none;
+      }
+      span {
+        display: flex;
+        justify-content: center;
+      }
+      .limit {
+        transform: translateY(-50%);
+      }
+    }
+    .edit-work-final {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      justify-items: flex-start;
+      align-items: center;
+      row-gap: 1.5rem;
+      column-gap: 2rem;
+      > div:nth-child(2) {
+        display: flex;
+        align-items: center;
+        .m-text {
+          padding-right: 1.5rem;
+        }
+      }
+    }
+  }
+  > div:nth-child(3) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 2.5rem;
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,11 @@
+.edit-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: $primary-dark;
+  line-height: 100%;
+  .calendar-icon {
+    transform: translateY(-5%);
+  }
+}

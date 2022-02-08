@@ -1,0 +1,41 @@
+.big-button-dark {
+  background: $primary-dark;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.9rem 1.3rem;
+  line-height: 100%;
+}
+
+.medium-button-dark {
+  background: $primary-dark;
+  color: $bg;
+  border-radius: 1rem;
+  padding: 0.8rem 1.3rem;
+  line-height: 100%;
+}
+
+.medium-button-light {
+  background: $bg;
+  color: $primary-dark;
+  border: solid 0.1rem $primary-dark;
+  border-radius: 1rem;
+  padding: 0.8rem 1.3rem;
+  line-height: 100%;
+}
+
+.small-button-dark {
+  background: $primary-dark;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.7rem 1.2rem;
+  line-height: 100%;
+}
+
+.small-button-light {
+  background: white;
+  color: $primary-dark;
+  border: solid 0.1rem $primary-dark;
+  border-radius: 1rem;
+  padding: 0.7rem 1.2rem;
+  line-height: 100%;
+}

@@ -1,0 +1,18 @@
+.white-container.confirm-white-container {
+  padding: 6rem 5rem 4rem 5rem;
+  .confirm-content {
+    width: 28rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .m-text {
+      justify-content: flex-start;
+    }
+    .confirm-button {
+      display: flex;
+      gap: 2rem;
+      justify-content: flex-end;
+      padding-top: 3rem;
+    }
+  }
+}

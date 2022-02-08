@@ -1,0 +1,11 @@
+.calendar {
+  width: 90%;
+  margin: 8vh auto auto auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  > div:nth-child(1) {
+    max-width: 1296px;
+    align-self: center;
+  }
+}

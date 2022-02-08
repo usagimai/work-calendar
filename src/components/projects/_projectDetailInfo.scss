@@ -1,0 +1,58 @@
+.project-detail-info {
+  display: flex;
+  align-items: flex-start;
+  .info-container-first {
+    width: 12rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+    &:after {
+      content: "";
+      position: absolute;
+      height: 50%;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      border-right: solid 0.1rem $primary-medium;
+    }
+  }
+  .info-container-middle {
+    width: 14rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 2rem;
+    gap: 0.5rem;
+    &:after {
+      content: "";
+      position: absolute;
+      height: 50%;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      border-right: solid 0.1rem $primary-medium;
+    }
+  }
+  .info-container-last {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 2rem;
+    gap: 0.5rem;
+  }
+  .s-text {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  .s-text,
+  .m-text {
+    line-height: 150%;
+  }
+}

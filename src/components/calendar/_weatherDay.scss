@@ -1,0 +1,8 @@
+.weather-day {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  > div {
+    align-self: center;
+  }
+}

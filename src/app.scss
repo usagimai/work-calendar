@@ -1,0 +1,187 @@
+//顏色
+$bg: #f7f7e8;
+$bg-gray: #e5e5e5;
+$font-color: #37383c;
+$font-gray: #999999;
+$primary-dark: #557174;
+$primary-medium: #9dad7f;
+$primary-light: #c7cfb7;
+$special-red: #cc0000;
+$special-orange: #ffad60;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: $bg;
+  color: $font-color;
+  font-family: "Roboto", "Noto Sans TC", sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.l-text {
+  font-size: 2.2rem;
+  // font-weight: 400;
+}
+
+.m-text {
+  font-size: 1.8rem;
+  // font-weight: 400;
+}
+
+.s-text {
+  font-size: 1.6rem;
+  // font-weight: 400;
+}
+
+.xs-text {
+  font-size: 1.4rem;
+  // font-weight: 400;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.edit-color {
+  color: $primary-dark;
+}
+
+.red-color {
+  color: $special-red;
+}
+
+.gray-color {
+  color: $font-gray;
+}
+
+.white-container {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+  .close-bg {
+    position: absolute;
+    top: -0.7rem;
+    left: -0.7rem;
+    height: 1.8rem;
+    width: 1.8rem;
+    background: white;
+    border-radius: 50%;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .close {
+    position: relative;
+    top: -0.1rem;
+    left: -0.1rem;
+  }
+}
+
+input:-internal-autofill-selected {
+  box-shadow: 0 0 0 50px white inset;
+}
+
+select {
+  background: white;
+  border: 0.1rem solid $primary-dark;
+  -moz-border: 0.1rem solid $primary-dark;
+}
+
+.hr-1 {
+  border-bottom: solid 0.1rem $primary-light;
+}
+
+.hr-2 {
+  border-bottom: solid 0.1rem $primary-medium;
+}
+
+.font-decoration-m {
+  width: 1rem;
+  height: 2.1rem;
+  border-radius: 0.3rem;
+  background: $primary-medium;
+}
+
+.font-decoration-l {
+  width: 1.2rem;
+  height: 3rem;
+  border-radius: 0.3rem;
+  background: $primary-medium;
+}
+
+.font-decoration-long {
+  width: 1.2rem;
+  height: 100%; /* 依內容高度 */
+  border-radius: 0.4rem;
+  background: $primary-medium;
+}
+
+@import "./components/reusable/buttonCollection.scss";
+@import "./components/reusable/decorationTitle";
+@import "./components/reusable/editGroup";
+@import "./components/reusable/backdrop";
+@import "./components/reusable/confirm";
+@import "./components/reusable/editWork";
+@import "./components/reusable/emptyMessage";
+@import "./components/nav/nav.scss";
+@import "./pages/home.scss";
+@import "./pages/calendar.scss";
+@import "./pages/mainFrame";
+@import "./components/login/login.scss";
+@import "./components/calendar/weather.scss";
+@import "./components/calendar/weatherLocation.scss";
+@import "./components/calendar/weatherWeek.scss";
+@import "./components/calendar/weatherDay.scss";
+@import "./components/calendar/calendarMonth.scss";
+@import "./components/calendar/calendarTitle.scss";
+@import "./components/projects/projectList.scss";
+@import "./components/projects/projectDetail.scss";
+@import "./components/projects/projectListFind";
+@import "./components/projects/projectListArea";
+@import "./components/projects/projectDetailTitle";
+@import "./components/projects/projectDetailInfo";
+@import "./components/projects/projectDetailSchedule";
+@import "./components/projects/planFinishDate";
+@import "./components/projects/editProject";
+@import "./components/projects/editProjectInfo";
+@import "./components/projects/noSchedule";
+@import "./components/projects/editProjectFinal";
+@import "./components/todos/todoList";

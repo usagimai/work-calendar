@@ -1,0 +1,32 @@
+.project-list-find {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  line-height: 150%;
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  select {
+    width: 16rem;
+  }
+  form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    input {
+      width: 18rem;
+      padding: 0.5rem 1rem;
+      color: $font-color;
+      border: solid 0.1rem $primary-dark;
+    }
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}

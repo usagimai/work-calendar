@@ -1,0 +1,41 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  .todo-list-title {
+    position: relative;
+    .l-text {
+      font-weight: 700;
+      line-height: 140%;
+    }
+    .create {
+      position: absolute;
+      top: 0;
+      right: 0;
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+  .todo-detail-schedule {
+    display: flex;
+    gap: 2rem;
+    > div:nth-child(2) {
+      width: 100%;
+      padding: 0 0 1.5rem 0;
+    }
+  }
+
+  .create-info {
+    width: 10rem;
+    height: 2.6rem;
+    position: absolute;
+    padding: 0.2rem 0.5rem;
+    border: solid 0.1rem $primary-dark;
+    background: $primary-light;
+    line-height: 100%;
+  }
+  .create-info-hidden {
+    display: none;
+  }
+}
