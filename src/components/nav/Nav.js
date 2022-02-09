@@ -64,32 +64,35 @@ const Nav = () => {
       <div className="nav">
         <div className="nav-content">
           <div className="nav-title">Work Calendar</div>
-          <div className="menu">
-            <div
-              className={`m-text pointer ${
-                menu[0] ? "calendar-active" : "calendar-inactive"
-              }`}
-            >
-              <Link to="/calendar">檢視行事曆</Link>
-            </div>
-            <div className="work-manage">
-              <div className="m-text">工作管理</div>
+          {menu && (
+            <div className="menu">
               <div
                 className={`m-text pointer ${
-                  menu[1] ? "work-active" : "work-inactive"
+                  menu[0] ? "calendar-active" : "calendar-inactive"
                 }`}
               >
-                <Link to="/projects">專案</Link>
+                <Link to="/calendar">檢視行事曆</Link>
               </div>
-              <div
-                className={`m-text pointer ${
-                  menu[2] ? "work-active" : "work-inactive"
-                }`}
-              >
-                <Link to="todos">其他</Link>
+              <div className="work-manage">
+                <div className="m-text">工作管理</div>
+                <div
+                  className={`m-text pointer ${
+                    menu[1] ? "work-active" : "work-inactive"
+                  }`}
+                >
+                  <Link to="/projects">專案</Link>
+                </div>
+                <div
+                  className={`m-text pointer ${
+                    menu[2] ? "work-active" : "work-inactive"
+                  }`}
+                >
+                  <Link to="todos">其他</Link>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="logout">
             <div></div>
             <div className="m-text pointer" onClick={handleLogoutBoxOpen}>
