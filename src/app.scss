@@ -7,7 +7,7 @@ $primary-dark: #557174;
 $primary-medium: #9dad7f;
 $primary-light: #c7cfb7;
 $special-red: #cc0000;
-$special-orange: #ffad60;
+$special-orange: #e49346;
 
 * {
   margin: 0;
@@ -154,6 +154,9 @@ select {
   background: $primary-medium;
 }
 
+@import "./components/calendar/calendarStyles";
+@import "react-big-calendar/lib/sass/styles";
+
 @import "./components/reusable/buttonCollection.scss";
 @import "./components/reusable/decorationTitle";
 @import "./components/reusable/editGroup";
@@ -171,7 +174,7 @@ select {
 @import "./components/calendar/weatherWeek.scss";
 @import "./components/calendar/weatherDay.scss";
 @import "./components/calendar/calendarMonth.scss";
-@import "./components/calendar/calendarTitle.scss";
+@import "./components/calendar/calendarToolbar";
 @import "./components/projects/projectList.scss";
 @import "./components/projects/projectDetail.scss";
 @import "./components/projects/projectListFind";
