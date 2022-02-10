@@ -66,29 +66,35 @@ const Nav = () => {
           <div className="nav-title">Work Calendar</div>
           {menu && (
             <div className="menu">
-              <div
-                className={`m-text pointer ${
-                  menu[0] ? "calendar-active" : "calendar-inactive"
-                }`}
-              >
-                <Link to="/calendar">檢視行事曆</Link>
-              </div>
+              <Link to="/calendar">
+                <div
+                  className={`m-text pointer ${
+                    menu[0] ? "calendar-active" : "calendar-inactive"
+                  }`}
+                >
+                  檢視行事曆
+                </div>
+              </Link>
               <div className="work-manage">
                 <div className="m-text">工作管理</div>
-                <div
-                  className={`m-text pointer ${
-                    menu[1] ? "work-active" : "work-inactive"
-                  }`}
-                >
-                  <Link to="/projects">專案</Link>
-                </div>
-                <div
-                  className={`m-text pointer ${
-                    menu[2] ? "work-active" : "work-inactive"
-                  }`}
-                >
-                  <Link to="todos">其他</Link>
-                </div>
+                <Link to="/projects">
+                  <div
+                    className={`m-text pointer ${
+                      menu[1] ? "work-active" : "work-inactive"
+                    }`}
+                  >
+                    專案
+                  </div>
+                </Link>
+                <Link to="todos">
+                  <div
+                    className={`m-text pointer ${
+                      menu[2] ? "work-active" : "work-inactive"
+                    }`}
+                  >
+                    其他
+                  </div>
+                </Link>
               </div>
             </div>
           )}
