@@ -5,6 +5,15 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 3rem;
+    > div:nth-child(1) {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      .short-title {
+        color: $primary-dark;
+        font-weight: 700;
+      }
+    }
     .edit-work-info {
       display: grid;
       grid-template-columns: auto 1fr;

@@ -6,16 +6,30 @@ import { SmallButtonDark } from "./ButtonCollection";
 import AlertMessage from "./AlertMessage";
 import { formData } from "../../data";
 
-const EditWork = ({ title1, title2 }) => {
+const EditWork = ({
+  title1,
+  title2,
+  setEventPopover,
+  allowScroll,
+  eventSelected,
+}) => {
+  const handleEventPopoverClose = () => {
+    setEventPopover();
+    allowScroll();
+  };
+
   return (
     <Backdrop>
       <div className="white-container create-white-container">
-        <div className="close-bg">
+        <div className="close-bg" onClick={handleEventPopoverClose}>
           <IconSelector name="close" />
         </div>
 
         <div className="create-content">
-          <DecorationTitle title={title1} fontSize="m" />
+          <div>
+            <DecorationTitle title={title1} fontSize="m" />
+            <div className="m-text short-title">【專案簡稱】</div>
+          </div>
           <div className="edit-work-info">
             <div className="m-text">完成期限</div>
             {/* 兩種狀態 */}

@@ -1,0 +1,27 @@
+$event-bg: #c7cfb780;
+$event-border: none;
+$event-outline: none;
+$event-color: #37383c;
+
+$today-highlight-bg: #fff8dd;
+
+div.rbc-header {
+  padding: 0.2rem 0;
+}
+
+div.rbc-row-segment {
+  padding: 0 0.3rem 0.3rem 0.3rem;
+}
+
+a.rbc-show-more {
+  color: $font-color;
+  padding-left: 0.3rem;
+}
+
+div.rbc-overlay-header::after {
+  content: "日";
+}
+
+div.rbc-event.rbc-event-continues-after {
+  margin-bottom: 0.3rem;
+}

@@ -2,8 +2,9 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 3rem;
   .calendar-month {
-    width: 23.2rem;
+    width: 20rem;
     height: 4.2rem;
     border-radius: 1rem;
     background: $primary-dark;

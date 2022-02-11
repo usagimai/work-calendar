@@ -17,6 +17,7 @@ const Home = () => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         navigate("/calendar", { replace: true });
+        allowScroll();
       }
     });
 
