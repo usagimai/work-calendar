@@ -8,6 +8,11 @@ import ProjectListArea from "./ProjectListArea";
 const ProjectList = () => {
   const createInfoRef = useRef();
   const [overCreate, setOverCreate] = useState(false);
+  const [findMethod, setFindMethod] = useState({
+    filter: "進行中",
+    sort: "CDNO",
+    search: "",
+  });
 
   //取得滑鼠座標，定位說明文字
   useEffect(() => {
@@ -38,8 +43,8 @@ const ProjectList = () => {
           <IconSelector name="create" />
         </div>
       </div>
-      <ProjectListFind />
-      <ProjectListArea />
+      <ProjectListFind findMethod={findMethod} setFindMethod={setFindMethod} />
+      <ProjectListArea findMethod={findMethod} />
       <div
         className={`xs-text center ${
           overCreate ? "create-info" : "create-info-hidden"

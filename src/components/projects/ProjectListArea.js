@@ -1,15 +1,84 @@
-const ProjectListArea = () => {
+import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+
+const ProjectListArea = ({ findMethod }) => {
+  const [projectList, setProjectList] = useState();
+  const [defaultProject, setDefaultProject] = useState();
+  const [projectSelected, setProjectSelected] = useState();
+
+  const projects = useSelector((state) => state.projects.all);
+  const firstRendering = useRef(true);
+
+  const handleProjectSelected = (id) => {
+    setProjectSelected(id);
+  };
+
+  //篩選、排序、搜尋功能
+  useEffect(() => {
+    const filteredList = projects.filter((project) => {
+      switch (findMethod.filter) {
+        case "進行中":
+          return project.finishDate.match(new RegExp("進行中", "gi"));
+        case "已完成":
+          return project.finishDate.indexOf("進行中") === -1;
+        case "全部":
+          return project;
+        default:
+          break;
+      }
+    });
+    const sortedList = filteredList.sort((a, b) => {
+      switch (findMethod.sort) {
+        case "CDNO":
+          return new Date(b.createDate) - new Date(a.createDate);
+        case "CDON":
+          return new Date(a.createDate) - new Date(b.createDate);
+        case "FDCF":
+          return new Date(a.planFinishDate) - new Date(b.planFinishDate);
+        case "FDFC":
+          return new Date(b.planFinishDate) - new Date(a.planFinishDate);
+        default:
+          break;
+      }
+    });
+    const searchResult = sortedList.filter((project) => {
+      if (findMethod.search === "") {
+        return project;
+      } else {
+        return project.title.match(new RegExp(findMethod.search, "gi"));
+      }
+    });
+    setProjectList(searchResult);
+  }, [projects, findMethod]);
+
+  //預設顯示之專案
+  useEffect(() => {
+    if (!projectList) return;
+    if (projectList.length === 0) return;
+    setDefaultProject(projectList[0].id);
+  }, [projectList]);
+
+  useEffect(() => {
+    if (!firstRendering.current) return;
+
+    setProjectSelected(defaultProject);
+    if (defaultProject) {
+      firstRendering.current = false;
+    }
+  }, [defaultProject]);
+
   return (
     <div className="project-list-area s-text">
-      <div className="selected">
-        <span>Work Calendar</span>
-      </div>
-      <div>
-        <span>Machu Days商品捐贈平台</span>
-      </div>
-      <div>
-        <span>CV</span>
-      </div>
+      {projects.length > 0 &&
+        projectList.map((project) => (
+          <div
+            key={project.id}
+            className={projectSelected === project.id ? "selected" : ""}
+            onClick={() => handleProjectSelected(project.id)}
+          >
+            <span>{project.title}</span>
+          </div>
+        ))}
     </div>
   );
 };
