@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import Backdrop from "./Backdrop";
 import { IconSelector } from "./IconSelector";
 import { DecorationTitle } from "./DecorationTitle";
@@ -7,75 +9,129 @@ import AlertMessage from "./AlertMessage";
 import { formData } from "../../data";
 
 const EditWork = ({
-  title1,
-  title2,
-  setEventPopover,
+  status,
+  setStatus,
   allowScroll,
+  setEventPopover,
   eventSelected,
+  setPjEditWorkOpen,
+  projectData,
+  work,
 }) => {
-  const handleEventPopoverClose = () => {
-    setEventPopover();
-    allowScroll();
+  const [title, setTitle] = useState();
+
+  const handleEditWorkClose = () => {
+    switch (status.page) {
+      case "CLD":
+        setEventPopover(false);
+        allowScroll();
+        break;
+      case "PJ":
+        setPjEditWorkOpen(false);
+        setStatus({ ...status, action: "view-project" });
+        allowScroll();
+        break;
+      default:
+        break;
+    }
   };
+
+  useEffect(() => {
+    switch (status.action) {
+      case "create-pj-work":
+        setTitle(["新增工作細項", ""]);
+        break;
+      case "edit-pj-work":
+        setTitle(["編輯工作細項", "工作細項完成 / 刪除"]);
+        break;
+    }
+  }, []);
 
   return (
     <Backdrop>
       <div className="white-container create-white-container">
-        <div className="close-bg" onClick={handleEventPopoverClose}>
+        <div className="close-bg" onClick={handleEditWorkClose}>
           <IconSelector name="close" />
         </div>
-
-        <div className="create-content">
-          <div>
-            <DecorationTitle title={title1} fontSize="m" />
-            <div className="m-text short-title">【專案簡稱】</div>
-          </div>
-          <div className="edit-work-info">
-            <div className="m-text">完成期限</div>
-            {/* 兩種狀態 */}
-            {/* <SelectCalendar text="選擇" /> */}
+        {title && (
+          <div className="create-content">
             <div>
-              <div className="m-text">2022/02/09</div>
-              <SelectCalendar text="編輯" />
+              <DecorationTitle title={title[0]} fontSize="m" />
+              <div className="m-text short-title">
+                {projectData.shortTitle ? `【${projectData.shortTitle}】` : ""}
+              </div>
+            </div>
+            <div className="edit-work-info">
+              <div className="m-text">完成期限</div>
+              {status.action === "create-pj-work" ||
+              status.action === "create-td-work" ? (
+                <SelectCalendar text="選擇" />
+              ) : (
+                <div>
+                  <div className="m-text">{work.deadline}</div>
+                  <SelectCalendar text="編輯" />
+                </div>
+              )}
+
+              <div className="m-text">執行日期</div>
+              {status.action === "create-pj-work" ||
+              status.action === "create-td-work" ? (
+                <SelectCalendar text="選擇" />
+              ) : (
+                <SelectCalendar text="檢視/編輯" />
+              )}
+
+              <div className="m-text">執行內容</div>
+              <input
+                type="text"
+                maxLength="30"
+                className="s-text"
+                value={work ? work.content : ""}
+              />
+              <div></div>
+              <div className="xs-text gray-color limit">{formData.limit30}</div>
+              <div className="m-text">
+                其他說明
+                <br />
+                <span className="xs-text gray-color">
+                  {formData.notNecessary}
+                </span>
+              </div>
+              <textarea
+                maxLength="100"
+                className="s-text"
+                value={work ? work.remark : ""}
+              ></textarea>
+              <div></div>
+              <div className="xs-text gray-color limit">
+                {formData.limit100}
+              </div>
             </div>
 
-            <div className="m-text">執行日期</div>
-            {/* 兩種狀態 */}
-            {/* <SelectCalendar text="選擇" /> */}
-            <SelectCalendar text="檢視/編輯" />
+            {status.action === "create-pj-work" ||
+            status.action === "create-td-work" ? null : (
+              <>
+                <DecorationTitle title={title[1]} fontSize="m" />
+                <div className="edit-work-final">
+                  <div className="m-text">實際完成日</div>
+                  {work.finishDate === "未完成" ? (
+                    <SelectCalendar text="選擇" />
+                  ) : (
+                    <div>
+                      <div className="m-text">{work.finishDate}</div>
+                      <SelectCalendar text="編輯" />
+                    </div>
+                  )}
 
-            <div className="m-text">執行內容</div>
-            <input type="text" maxLength="30" className="s-text" />
-            <div></div>
-            <div className="xs-text gray-color limit">{formData.limit30}</div>
-            <div className="m-text">
-              其他說明
-              <br />
-              <span className="xs-text gray-color">
-                {formData.notNecessary}
-              </span>
-            </div>
-            <textarea maxLength="100" className="s-text"></textarea>
-            <div></div>
-            <div className="xs-text gray-color limit">{formData.limit100}</div>
+                  <div className="m-text">刪除工作細項</div>
+                  <div className="pointer">
+                    <IconSelector name="delete" />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
-
-          <DecorationTitle title={title2} fontSize="m" />
-          <div className="edit-work-final">
-            <div className="m-text">實際完成日</div>
-            {/* 兩種狀態 */}
-            {/* <SelectCalendar text="選擇" /> */}
-            <div>
-              <div className="m-text">2022/02/09</div>
-              <SelectCalendar text="編輯" />
-            </div>
-
-            <div className="m-text">刪除工作細項</div>
-            <div className="pointer">
-              <IconSelector name="delete" />
-            </div>
-          </div>
-        </div>
+        )}
 
         <div>
           {/* <AlertMessage type="alert2" /> */}
