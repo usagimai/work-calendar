@@ -13,6 +13,7 @@ export const Confirm = ({
   confirmFor,
   setLogoutBoxOpen,
   allowScroll,
+  blockScroll,
 }) => {
   const navigate = useNavigate();
 
@@ -63,6 +64,7 @@ export const Confirm = ({
   const handleLogoutNavigate = () => {
     handleConfirmBoxClose();
     navigate("/", { replace: true });
+    blockScroll();
   };
 
   return (

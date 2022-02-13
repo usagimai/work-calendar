@@ -12,10 +12,10 @@ const EditProjectInfo = ({ title }) => {
         <input
           type="text"
           id="project-name"
-          maxLength="30"
+          maxLength="20"
           className="s-text"
         />
-        <div className="xs-text gray-color">{formData.limit30}</div>
+        <div className="xs-text gray-color">{formData.limit20}</div>
         <label htmlFor="project-simple" className="m-text">
           專案簡稱
         </label>

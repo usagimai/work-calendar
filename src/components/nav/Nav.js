@@ -7,13 +7,13 @@ import useScrollBlock from "../../utils/useScrollBlock";
 import { app, auth } from "../../firebase-config";
 
 const Nav = () => {
+  const { pathname } = useLocation();
+  const path = pathname.split("/")[1];
+
   const [blockScroll, allowScroll] = useScrollBlock();
   const [logoutBoxOpen, setLogoutBoxOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const [menu, setMenu] = useState();
-
-  const { pathname } = useLocation();
-  const path = pathname.split("/")[1];
 
   const handleLogoutBoxOpen = () => {
     setLogoutBoxOpen(true);
@@ -58,6 +58,7 @@ const Nav = () => {
           confirmFor="logout"
           setLogoutBoxOpen={setLogoutBoxOpen}
           allowScroll={allowScroll}
+          blockScroll={blockScroll}
         />
       )}
 
@@ -86,7 +87,7 @@ const Nav = () => {
                     專案
                   </div>
                 </Link>
-                <Link to="todos">
+                <Link to="/todos">
                   <div
                     className={`m-text pointer ${
                       menu[2] ? "work-active" : "work-inactive"

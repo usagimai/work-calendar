@@ -1,6 +1,7 @@
 export const formData = {
   notNecessary: "(非必填)",
   limit5: "字數限制5字",
+  limit20: "字數限制20字",
   limit30: "字數限制30字",
   limit70: "字數限制70字",
   limit100: "字數限制100字 (可換行)",
