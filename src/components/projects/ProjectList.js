@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { DecorationTitle } from "../reusable/DecorationTitle";
 import { IconSelector } from "../reusable/IconSelector";
 import ProjectListFind from "./ProjectListFind";
 import ProjectListArea from "./ProjectListArea";
 
-const ProjectList = () => {
+const ProjectList = ({
+  projectList,
+  setProjectList,
+  projectSelected,
+  setProjectSelected,
+}) => {
   const createInfoRef = useRef();
   const [overCreate, setOverCreate] = useState(false);
   const [findMethod, setFindMethod] = useState({
@@ -40,11 +46,19 @@ const ProjectList = () => {
             setOverCreate(false);
           }}
         >
-          <IconSelector name="create" />
+          <Link to="/create-project">
+            <IconSelector name="create" />
+          </Link>
         </div>
       </div>
       <ProjectListFind findMethod={findMethod} setFindMethod={setFindMethod} />
-      <ProjectListArea findMethod={findMethod} />
+      <ProjectListArea
+        findMethod={findMethod}
+        projectList={projectList}
+        setProjectList={setProjectList}
+        projectSelected={projectSelected}
+        setProjectSelected={setProjectSelected}
+      />
       <div
         className={`xs-text center ${
           overCreate ? "create-info" : "create-info-hidden"

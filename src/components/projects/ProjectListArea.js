@@ -1,13 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 
-const ProjectListArea = ({ findMethod }) => {
-  const [projectList, setProjectList] = useState();
-  const [defaultProject, setDefaultProject] = useState();
-  const [projectSelected, setProjectSelected] = useState();
-
+const ProjectListArea = ({
+  findMethod,
+  projectList,
+  setProjectList,
+  projectSelected,
+  setProjectSelected,
+}) => {
   const projects = useSelector((state) => state.projects.all);
   const firstRendering = useRef(true);
+
+  const [defaultProject, setDefaultProject] = useState();
 
   const handleProjectSelected = (id) => {
     setProjectSelected(id);
@@ -69,7 +73,7 @@ const ProjectListArea = ({ findMethod }) => {
 
   return (
     <div className="project-list-area s-text">
-      {projects.length > 0 &&
+      {projectList && projectList.length > 0 ? (
         projectList.map((project) => (
           <div
             key={project.id}
@@ -78,7 +82,10 @@ const ProjectListArea = ({ findMethod }) => {
           >
             <span>{project.title}</span>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className="no-project">無專案</div>
+      )}
     </div>
   );
 };
