@@ -21,6 +21,7 @@ function App() {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState();
+  const [status, setStatus] = useState({ page: "", action: "" });
 
   //使用Firebase的功能監聽使用者是否登入(若為登入，會從Firebase接收到該使用者的資訊，包含email、UID等)
   useEffect(() => {
@@ -42,12 +43,30 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/projects/" element={<Projects />} />
-        <Route path="/projects/:id" element={<Projects />} />
-        <Route path="/create-project" element={<CreateProject />} />
-        <Route path="/edit-project/:id" element={<EditProject />} />
-        <Route path="/todos" element={<Todos />} />
+        <Route
+          path="/calendar"
+          element={<Calendar status={status} setStatus={setStatus} />}
+        />
+        <Route
+          path="/projects/"
+          element={<Projects status={status} setStatus={setStatus} />}
+        />
+        <Route
+          path="/projects/:id"
+          element={<Projects status={status} setStatus={setStatus} />}
+        />
+        <Route
+          path="/create-project"
+          element={<CreateProject status={status} setStatus={setStatus} />}
+        />
+        <Route
+          path="/edit-project/:id"
+          element={<EditProject status={status} setStatus={setStatus} />}
+        />
+        <Route
+          path="/todos"
+          element={<Todos status={status} setStatus={setStatus} />}
+        />
       </Routes>
     </>
   );

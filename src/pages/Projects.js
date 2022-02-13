@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -7,17 +7,23 @@ import ProjectDetail from "../components/projects/ProjectDetail";
 import EmptyMessage from "../components/reusable/EmptyMessage";
 import { app, auth } from "../firebase-config";
 
-const Projects = () => {
+const Projects = ({ status, setStatus }) => {
   const user = auth.currentUser;
   const navigate = useNavigate();
 
-  //驗證登入狀態，若未登入則轉導回首頁
+  const [projectList, setProjectList] = useState();
+  const [projectSelected, setProjectSelected] = useState();
+
   useEffect(() => {
+    //驗證登入狀態，若未登入則轉導回首頁
     onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
         navigate("/", { replace: true });
       }
     });
+
+    //設定操作status的「頁面資訊」
+    setStatus({ ...status, page: "PJ" });
   }, []);
 
   //未登入狀態進入此頁面不顯示內容
@@ -25,13 +31,24 @@ const Projects = () => {
 
   return (
     <div className="main-frame">
-      <ProjectList />
-      {/* 依有無專案顯示不同component */}
-      <ProjectDetail />
-      {/* <EmptyMessage
-        message1="查無專案"
-        message2="如欲新增，請透過左方圖示進行"
-      /> */}
+      <ProjectList
+        projectSelected={projectSelected}
+        setProjectSelected={setProjectSelected}
+        projectList={projectList}
+        setProjectList={setProjectList}
+      />
+      {(projectList && projectList.length > 0) || projectSelected ? (
+        <ProjectDetail
+          projectSelected={projectSelected}
+          status={status}
+          setStatus={setStatus}
+        />
+      ) : (
+        <EmptyMessage
+          message1="查無專案"
+          message2="如欲新增，請透過左方圖示進行"
+        />
+      )}
     </div>
   );
 };

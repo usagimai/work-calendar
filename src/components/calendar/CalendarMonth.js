@@ -15,52 +15,62 @@ const events = [
     title: "Big Meeting",
     start: moment("2022-02-02").toDate(),
     end: moment("2022-02-02").toDate(),
+    resource: ["todos", "20220210_1728"],
   },
   {
     title: "Big Meeting2",
     start: moment("2022-02-02").toDate(),
     end: moment("2022-02-02").toDate(),
+    resource: ["todos", "20220210_1729"],
   },
   {
     title: "Big Meeting3",
     start: moment("2022-02-02").toDate(),
     end: moment("2022-02-02").toDate(),
+    resource: ["todos", "20220210_1730"],
   },
   {
     title: "Big Meeting4",
     start: moment("2022-02-02").toDate(),
     end: moment("2022-02-02").toDate(),
+    resource: ["todos", "20220210_1731"],
   },
   {
     title: "Big Meeting5",
     start: moment("2022-02-02").toDate(),
     end: moment("2022-02-02").toDate(),
+    resource: ["todos", "20220210_1732"],
   },
   {
     title: "Big Meeting6",
     start: moment("2022-02-02").toDate(),
     end: moment("2022-02-02").toDate(),
+    resource: ["todos", "20220210_1733"],
   },
   {
     title: "Vacation",
     start: moment("2022-02-10").toDate(),
     end: moment("2022-02-12").toDate(),
+    resource: ["todos", "20220210_1734"],
   },
   {
     title: "Conference",
     start: moment("2022-02-20").toDate(),
     end: moment("2022-02-24").toDate(),
+    resource: ["todos", "20220210_1735"],
   },
 ];
 
-const CalendarMonth = () => {
+const CalendarMonth = ({ status, setStatus }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   //到時候資料用redux或context處理
   const [customEventList, setEvents] = useState(events);
   const [eventPopover, setEventPopover] = useState(false);
+  const [eventSelected, setEventSelected] = useState();
 
-  const handleEventPopover = () => {
+  const handleEventPopover = (eventOne) => {
     setEventPopover(true);
+    setEventSelected(eventOne);
     blockScroll();
   };
 
@@ -68,10 +78,10 @@ const CalendarMonth = () => {
     <>
       {eventPopover && (
         <EditWork
-          title1="編輯工作細項"
-          title2="工作細項完成 / 刪除"
+          //待寫規則設定status的action為「edit-pj-work」或「edit-td-work」
           setEventPopover={setEventPopover}
           allowScroll={allowScroll}
+          eventSelected={eventSelected}
         />
       )}
       <Calendar
@@ -81,10 +91,9 @@ const CalendarMonth = () => {
         localizer={localizer}
         selectable
         popup={true}
-        onSelectEvent={handleEventPopover}
+        onSelectEvent={(eventOne) => handleEventPopover(eventOne)}
         components={{
           toolbar: RBCToolbar,
-          // event: EventPopover,
         }}
         messages={{
           showMore: function showMore(total) {
