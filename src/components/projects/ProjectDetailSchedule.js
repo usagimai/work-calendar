@@ -36,7 +36,7 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
               />
             ))}
         </div>
-        {!projectData.works[0] && <NoSchedule />}
+        {projectData.works.length === 0 && <NoSchedule />}
       </div>
     </div>
   );
