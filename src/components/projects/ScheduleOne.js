@@ -1,16 +1,15 @@
-import { useState } from "react";
-// import DatePicker from "react-datepicker";
+import { useEffect, useState } from "react";
+import { Calendar } from "react-multi-date-picker";
 
 import { EditPen } from "../reusable/EditGroup";
 import EditWork from "../reusable/EditWork";
 import useScrollBlock from "../../utils/useScrollBlock";
-// import "react-datepicker/dist/react-datepicker.css";
+import "../../teal.css";
 
 const ScheduleOne = ({ work, projectData, status, setStatus }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
-  // const [datePickerOpen, setDatePickerOpen] = useState(false);
-  // const [startDate, setStartDate] = useState(new Date());
+  const [smallCalendarOpen, setSmallCalendarOpen] = useState(false);
 
   const handleEditPJWork = () => {
     switch (status.page) {
@@ -24,6 +23,20 @@ const ScheduleOne = ({ work, projectData, status, setStatus }) => {
     }
   };
 
+  useEffect(() => {
+    const handleCloseSmallCalendar = (e) => {
+      if (!smallCalendarOpen) return;
+      if (e.target.classList.contains("transparent-backdrop")) {
+        setSmallCalendarOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleCloseSmallCalendar, {
+      passive: true,
+    });
+    return () => window.removeEventListener("click", handleCloseSmallCalendar);
+  }, [smallCalendarOpen]);
+
   return (
     <>
       {pjEditWorkOpen && (
@@ -36,25 +49,26 @@ const ScheduleOne = ({ work, projectData, status, setStatus }) => {
           work={work}
         />
       )}
-      {/* {datePickerOpen && (
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
-      )} */}
 
       <div className="m-text center">{work.deadline}</div>
       <div className="m-text">{work.content}</div>
-      <div
-        className="m-text center edit-color pointer"
-        // onClick={() => setDatePickerOpen(true)}
-      >
-        檢視月曆
+      <div className="m-text center edit-color pointer small-calendar-container">
+        <span onClick={() => setSmallCalendarOpen(true)}>檢視月曆</span>
+        {smallCalendarOpen && (
+          <Calendar
+            value={work.todoDate}
+            multiple="true"
+            showOtherDays
+            readOnly
+            className="small-calendar teal"
+          />
+        )}
       </div>
       <div className="m-text center">{work.finishDate}</div>
       <div onClick={handleEditPJWork}>
         <EditPen text="編輯" />
       </div>
+      {smallCalendarOpen && <div className="transparent-backdrop"></div>}
     </>
   );
 };
