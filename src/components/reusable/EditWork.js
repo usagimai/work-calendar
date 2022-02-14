@@ -17,6 +17,8 @@ const EditWork = ({
   setPjEditWorkOpen,
   projectData,
   work,
+  setTdEditWorkOpen,
+  todo,
 }) => {
   const [title, setTitle] = useState();
 
@@ -29,6 +31,10 @@ const EditWork = ({
       case "PJ":
         setPjEditWorkOpen(false);
         setStatus({ ...status, action: "view-project" });
+        allowScroll();
+        break;
+      case "TD":
+        setTdEditWorkOpen(false);
         allowScroll();
         break;
       default:
@@ -44,6 +50,14 @@ const EditWork = ({
       case "edit-pj-work":
         setTitle(["編輯工作細項", "工作細項完成 / 刪除"]);
         break;
+      case "create-td-work":
+        setTitle(["新增待辦事項", ""]);
+        break;
+      case "edit-td-work":
+        setTitle(["編輯待辦事項", "待辦事項完成 / 刪除"]);
+        break;
+      default:
+        break;
     }
   }, []);
 
@@ -58,7 +72,9 @@ const EditWork = ({
             <div>
               <DecorationTitle title={title[0]} fontSize="m" />
               <div className="m-text short-title">
-                {projectData.shortTitle ? `【${projectData.shortTitle}】` : ""}
+                {projectData && projectData.shortTitle
+                  ? `【${projectData.shortTitle}】`
+                  : ""}
               </div>
             </div>
             <div className="edit-work-info">
@@ -68,7 +84,9 @@ const EditWork = ({
                 <SelectCalendar text="選擇" />
               ) : (
                 <div>
-                  <div className="m-text">{work.deadline}</div>
+                  <div className="m-text">
+                    {work ? work.deadline : todo.deadline}
+                  </div>
                   <SelectCalendar text="編輯" />
                 </div>
               )}
@@ -86,7 +104,7 @@ const EditWork = ({
                 type="text"
                 maxLength="30"
                 className="s-text"
-                value={work ? work.content : ""}
+                value={work ? work.content : todo ? todo.content : ""}
               />
               <div></div>
               <div className="xs-text gray-color limit">{formData.limit30}</div>
@@ -100,7 +118,7 @@ const EditWork = ({
               <textarea
                 maxLength="100"
                 className="s-text"
-                value={work ? work.remark : ""}
+                value={work ? work.remark : todo ? todo.remark : ""}
               ></textarea>
               <div></div>
               <div className="xs-text gray-color limit">
@@ -114,11 +132,14 @@ const EditWork = ({
                 <DecorationTitle title={title[1]} fontSize="m" />
                 <div className="edit-work-final">
                   <div className="m-text">實際完成日</div>
-                  {work.finishDate === "未完成" ? (
+                  {(work && work.finishDate === "未完成") ||
+                  (todo && todo.finishDate === "未完成") ? (
                     <SelectCalendar text="選擇" />
                   ) : (
                     <div>
-                      <div className="m-text">{work.finishDate}</div>
+                      <div className="m-text">
+                        {work ? work.finishDate : todo.finishDate}
+                      </div>
                       <SelectCalendar text="編輯" />
                     </div>
                   )}

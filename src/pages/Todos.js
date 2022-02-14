@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -6,17 +6,26 @@ import FindTodos from "../components/todos/FindTodos";
 import TodoList from "../components/todos/TodoList";
 import { app, auth } from "../firebase-config";
 
-const Todos = () => {
+const Todos = ({ status, setStatus }) => {
   const user = auth.currentUser;
   const navigate = useNavigate();
 
-  //驗證登入狀態，若未登入則轉導回首頁
+  const [findMethod, setFindMethod] = useState({
+    filter: "未完成",
+    sort: "CDNO",
+    search: "",
+  });
+
   useEffect(() => {
+    //驗證登入狀態，若未登入則轉導回首頁
     onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
         navigate("/", { replace: true });
       }
     });
+
+    //設定操作status的「頁面資訊」
+    setStatus({ ...status, page: "TD" });
   }, []);
 
   //未登入狀態進入此頁面不顯示內容
@@ -24,8 +33,8 @@ const Todos = () => {
 
   return (
     <div className="main-frame">
-      <FindTodos />
-      <TodoList />
+      <FindTodos findMethod={findMethod} setFindMethod={setFindMethod} />
+      <TodoList findMethod={findMethod} status={status} setStatus={setStatus} />
     </div>
   );
 };
