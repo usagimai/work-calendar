@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Calendar } from "react-multi-date-picker";
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
 
 import { EditPen } from "../reusable/EditGroup";
 import EditWork from "../reusable/EditWork";
 import useScrollBlock from "../../utils/useScrollBlock";
-import "../../teal.css";
 
 const ScheduleOne = ({ work, projectData, status, setStatus }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
@@ -61,6 +61,7 @@ const ScheduleOne = ({ work, projectData, status, setStatus }) => {
             showOtherDays
             readOnly
             className="small-calendar teal"
+            plugins={[<DatePanel position={"right"} sort="date" />]}
           />
         )}
       </div>

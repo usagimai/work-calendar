@@ -3,7 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 
+//CSS
 import "./app.scss";
+import "./teal.css";
 //components
 import Nav from "./components/nav/Nav";
 import Home from "./pages/Home";
