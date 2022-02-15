@@ -9,15 +9,9 @@ const PlanFinishDate = ({ projectData, status, setStatus }) => {
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
 
   const handleCreatePJWork = () => {
-    switch (status.page) {
-      case "PJ":
-        setPjEditWorkOpen(true);
-        setStatus({ ...status, action: "create-pj-work" });
-        blockScroll();
-        break;
-      default:
-        break;
-    }
+    setPjEditWorkOpen(true);
+    setStatus({ ...status, action: "create-pj-work" });
+    blockScroll();
   };
 
   return (
@@ -32,7 +26,9 @@ const PlanFinishDate = ({ projectData, status, setStatus }) => {
         />
       )}
       <div className="plan-finish-date">
-        <div className="m-text red-color">{projectData.planFinishDate}</div>
+        <div className="m-text red-color">
+          {projectData ? projectData.planFinishDate : null}
+        </div>
         <div className="m-text">專案預定完成日</div>
         {status.action === "view-project" ? (
           <div></div>

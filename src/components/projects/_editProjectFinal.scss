@@ -6,9 +6,17 @@
   padding-top: 2rem;
   > div:nth-child(2) {
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    row-gap: 2rem;
-    column-gap: 2rem;
+    grid-template-columns: auto 1fr;
+    justify-items: flex-start;
     align-items: center;
+    row-gap: 1.5rem;
+    column-gap: 2rem;
+    > div:nth-child(2) {
+      display: flex;
+      align-items: center;
+      .m-text {
+        padding-right: 1.5rem;
+      }
+    }
   }
 }

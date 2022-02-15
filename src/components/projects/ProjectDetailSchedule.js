@@ -6,8 +6,10 @@ import NoSchedule from "./NoSchedule";
 
 const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
   useEffect(() => {
-    //設定操作status的「動作資訊」
-    setStatus({ ...status, action: "view-project" });
+    if (projectData) {
+      //設定操作status的「動作資訊」
+      setStatus({ ...status, action: "view-project" });
+    }
   }, []);
 
   return (
@@ -25,7 +27,8 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
           <div className="schedule-title center s-text">執行日期</div>
           <div className="schedule-title center s-text">實際完成日</div>
           <div></div>
-          {projectData.works[0] &&
+          {projectData &&
+            projectData.works[0] &&
             projectData.works.map((work) => (
               <ScheduleOne
                 key={work.id}
@@ -36,7 +39,11 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
               />
             ))}
         </div>
-        {projectData.works.length === 0 && <NoSchedule />}
+        {!projectData ? (
+          <NoSchedule />
+        ) : projectData.works.length === 0 ? (
+          <NoSchedule />
+        ) : null}
       </div>
     </div>
   );
