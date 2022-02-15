@@ -9,8 +9,6 @@ import Nav from "./components/nav/Nav";
 import Home from "./pages/Home";
 import Calendar from "./pages/Calendar";
 import Projects from "./pages/Projects";
-import CreateProject from "./pages/CreateProject";
-import EditProject from "./pages/EditProject";
 import Todos from "./pages/Todos";
 //others
 import { loadProjects } from "./actions/projectsAction";
@@ -50,18 +48,6 @@ function App() {
         <Route
           path="/projects/"
           element={<Projects status={status} setStatus={setStatus} />}
-        />
-        <Route
-          path="/projects/:id"
-          element={<Projects status={status} setStatus={setStatus} />}
-        />
-        <Route
-          path="/create-project"
-          element={<CreateProject status={status} setStatus={setStatus} />}
-        />
-        <Route
-          path="/edit-project/:id"
-          element={<EditProject status={status} setStatus={setStatus} />}
         />
         <Route
           path="/todos"

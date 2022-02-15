@@ -5,7 +5,12 @@ import ProjectDetailTitle from "./ProjectDetailTitle";
 import ProjectDetailInfo from "./ProjectDetailInfo";
 import ProjectDetailSchedule from "./ProjectDetailSchedule";
 
-const ProjectDetail = ({ projectSelected, status, setStatus }) => {
+const ProjectDetail = ({
+  projectSelected,
+  status,
+  setStatus,
+  setEditPJClicked,
+}) => {
   const projects = useSelector((state) => state.projects.all);
 
   const [projectData, setProjectData] = useState();
@@ -22,7 +27,12 @@ const ProjectDetail = ({ projectSelected, status, setStatus }) => {
     <>
       {projectData && (
         <div className="project-detail">
-          <ProjectDetailTitle projectData={projectData} />
+          <ProjectDetailTitle
+            projectData={projectData}
+            status={status}
+            setStatus={setStatus}
+            setEditPJClicked={setEditPJClicked}
+          />
           <ProjectDetailInfo projectData={projectData} />
           <ProjectDetailSchedule
             projectData={projectData}

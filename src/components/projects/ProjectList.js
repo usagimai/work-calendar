@@ -11,6 +11,10 @@ const ProjectList = ({
   setProjectList,
   projectSelected,
   setProjectSelected,
+  status,
+  setStatus,
+  setCreatePJClicked,
+  setEditPJClicked,
 }) => {
   const createInfoRef = useRef();
   const [overCreate, setOverCreate] = useState(false);
@@ -20,8 +24,13 @@ const ProjectList = ({
     search: "",
   });
 
-  //取得滑鼠座標，定位說明文字
+  const handleCreatePJClicked = () => {
+    setStatus({ ...status, action: "create-project" });
+    setCreatePJClicked(true);
+  };
+
   useEffect(() => {
+    //取得滑鼠座標，定位說明文字
     const handleCursorPosition = (e) => {
       createInfoRef.current.style.top = e.pageY + 10 + "px";
       createInfoRef.current.style.left = e.pageX + 15 + "px";
@@ -45,10 +54,9 @@ const ProjectList = ({
           onMouseLeave={() => {
             setOverCreate(false);
           }}
+          onClick={handleCreatePJClicked}
         >
-          <Link to="/create-project">
-            <IconSelector name="create" />
-          </Link>
+          <IconSelector name="create" />
         </div>
       </div>
       <ProjectListFind findMethod={findMethod} setFindMethod={setFindMethod} />
@@ -58,6 +66,8 @@ const ProjectList = ({
         setProjectList={setProjectList}
         projectSelected={projectSelected}
         setProjectSelected={setProjectSelected}
+        setCreatePJClicked={setCreatePJClicked}
+        setEditPJClicked={setEditPJClicked}
       />
       <div
         className={`xs-text center ${
