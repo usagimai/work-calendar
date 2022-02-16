@@ -38,9 +38,9 @@ const ProjectListArea = ({
     const sortedList = filteredList.sort((a, b) => {
       switch (findMethod.sort) {
         case "CDNO":
-          return new Date(b.createDate) - new Date(a.createDate);
+          return b.createDateTime - a.createDateTime;
         case "CDON":
-          return new Date(a.createDate) - new Date(b.createDate);
+          return a.createDateTime - b.createDateTime;
         case "FDCF":
           return new Date(a.planFinishDate) - new Date(b.planFinishDate);
         case "FDFC":

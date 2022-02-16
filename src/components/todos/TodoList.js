@@ -16,6 +16,12 @@ const TodoList = ({ findMethod, status, setStatus }) => {
   const [todoList, setTodoList] = useState();
   const [tdEditWorkOpen, setTdEditWorkOpen] = useState(false);
 
+  const handleCreateWork = () => {
+    setTdEditWorkOpen(true);
+    setStatus({ ...status, work: "create-td" });
+    blockScroll();
+  };
+
   //篩選、排序、搜尋功能
   useEffect(() => {
     const filteredList = todos.filter((todo) => {
@@ -33,9 +39,9 @@ const TodoList = ({ findMethod, status, setStatus }) => {
     const sortedList = filteredList.sort((a, b) => {
       switch (findMethod.sort) {
         case "CDNO":
-          return new Date(b.createDate) - new Date(a.createDate);
+          return b.createDateTime - a.createDateTime;
         case "CDON":
-          return new Date(a.createDate) - new Date(b.createDate);
+          return a.createDateTime - b.createDateTime;
         case "FDCF":
           return new Date(a.deadline) - new Date(b.deadline);
         case "FDFC":
@@ -53,12 +59,6 @@ const TodoList = ({ findMethod, status, setStatus }) => {
     });
     setTodoList(searchResult);
   }, [todos, findMethod]);
-
-  const handleCreateWork = () => {
-    setTdEditWorkOpen(true);
-    setStatus({ ...status, work: "create-td" });
-    blockScroll();
-  };
 
   //取得滑鼠座標，定位說明文字
   useEffect(() => {
