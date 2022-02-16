@@ -1,0 +1,81 @@
+:root {
+  --rmdp-primary-teal: #557174;
+  --rmdp-secondary-teal: #999999;
+  --rmdp-shadow-teal: #557174;
+  --rmdp-today-teal: #c7cfb7;
+  --rmdp-hover-teal: #9dad7f;
+  --rmdp-deselect-teal: #37383c;
+}
+
+.teal .rmdp-wrapper {
+  border: 1px solid var(--rmdp-secondary-teal);
+  box-shadow: 0 0 5px var(--rmdp-secondary-teal);
+}
+
+.teal .rmdp-panel-body li {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 2px var(--rmdp-secondary-teal);
+}
+
+.teal .rmdp-week-day {
+  color: var(--rmdp-hover-teal);
+}
+
+.teal .rmdp-day.rmdp-deactive {
+  color: var(--rmdp-secondary-teal);
+}
+
+.teal .rmdp-range {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 3px var(--rmdp-shadow-teal);
+}
+
+.teal .rmdp-arrow {
+  border: solid var(--rmdp-primary-teal);
+  border-width: 0 2px 2px 0;
+}
+
+.teal .rmdp-arrow-container:hover {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 3px var(--rmdp-secondary-teal);
+}
+
+.teal .rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: var(--rmdp-primary-teal);
+}
+
+.teal .rmdp-day.rmdp-today span {
+  background-color: var(--rmdp-today-teal);
+  color: white;
+}
+
+.teal .rmdp-rtl .rmdp-panel {
+  border-left: unset;
+  border-right: 1px solid var(--rmdp-secondary-teal);
+}
+
+.teal .rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 3px var(--rmdp-shadow-teal);
+}
+
+.teal .rmdp-day:not(.rmdp-day-hidden) span:hover {
+  background-color: var(--rmdp-hover-teal) !important;
+}
+
+.teal .b-deselect {
+  color: var(--rmdp-deselect-teal);
+  background-color: white;
+}
+
+.teal .rmdp-action-button {
+  color: var(--rmdp-primary-teal);
+}
+
+.teal .rmdp-button:not(.rmdp-action-button) {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.teal .rmdp-button:not(.rmdp-action-button):hover {
+  background-color: var(--rmdp-deselect-teal);
+}

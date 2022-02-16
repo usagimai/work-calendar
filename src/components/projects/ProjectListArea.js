@@ -7,6 +7,8 @@ const ProjectListArea = ({
   setProjectList,
   projectSelected,
   setProjectSelected,
+  setCreatePJClicked,
+  setEditPJClicked,
 }) => {
   const projects = useSelector((state) => state.projects.all);
   const firstRendering = useRef(true);
@@ -15,6 +17,8 @@ const ProjectListArea = ({
 
   const handleProjectSelected = (id) => {
     setProjectSelected(id);
+    setCreatePJClicked(false);
+    setEditPJClicked(false);
   };
 
   //篩選、排序、搜尋功能
@@ -57,8 +61,7 @@ const ProjectListArea = ({
 
   //預設顯示之專案
   useEffect(() => {
-    if (!projectList) return;
-    if (projectList.length === 0) return;
+    if (!projectList || projectList.length === 0) return;
     setDefaultProject(projectList[0].id);
   }, [projectList]);
 

@@ -1,14 +1,11 @@
-import { useEffect } from "react";
+import { useState } from "react";
 
 import PlanFinishDate from "./PlanFinishDate";
 import ScheduleOne from "./ScheduleOne";
 import NoSchedule from "./NoSchedule";
 
 const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
-  useEffect(() => {
-    //設定操作status的「動作資訊」
-    setStatus({ ...status, action: "view-project" });
-  }, []);
+  const [planFinishDateValue, setPlanFinishDateValue] = useState();
 
   return (
     <div className="project-detail-schedule">
@@ -18,6 +15,8 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
           projectData={projectData}
           status={status}
           setStatus={setStatus}
+          planFinishDateValue={planFinishDateValue}
+          setPlanFinishDateValue={setPlanFinishDateValue}
         />
         <div className="schedule-group">
           <div className="schedule-title center s-text">完成期限</div>
@@ -25,7 +24,9 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
           <div className="schedule-title center s-text">執行日期</div>
           <div className="schedule-title center s-text">實際完成日</div>
           <div></div>
-          {projectData.works[0] &&
+          {status.project !== "create" &&
+            projectData &&
+            projectData.works[0] &&
             projectData.works.map((work) => (
               <ScheduleOne
                 key={work.id}
@@ -36,7 +37,11 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
               />
             ))}
         </div>
-        {!projectData.works[0] && <NoSchedule />}
+        {status.project === "create" ? (
+          <NoSchedule />
+        ) : projectData && projectData.works.length === 0 ? (
+          <NoSchedule />
+        ) : null}
       </div>
     </div>
   );

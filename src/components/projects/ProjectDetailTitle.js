@@ -1,14 +1,22 @@
-import { Link } from "react-router-dom";
-
 import { EditPen } from "../reusable/EditGroup";
 
-const ProjectDetailTitle = ({ projectData }) => {
+const ProjectDetailTitle = ({
+  projectData,
+  status,
+  setStatus,
+  setEditPJClicked,
+}) => {
+  const handleEditPJClicked = () => {
+    setEditPJClicked(true);
+    setStatus({ ...status, project: "edit" });
+  };
+
   return (
     <div className="project-detail-title">
       <div className="l-text center">{projectData.title}</div>
-      <Link to={`/edit-project/${projectData.id}`}>
+      <div onClick={handleEditPJClicked}>
         <EditPen text="編輯專案設定" />
-      </Link>
+      </div>
     </div>
   );
 };

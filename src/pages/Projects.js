@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
+import EmptyMessage from "../components/reusable/EmptyMessage";
 import ProjectList from "../components/projects/ProjectList";
 import ProjectDetail from "../components/projects/ProjectDetail";
-import EmptyMessage from "../components/reusable/EmptyMessage";
+import EditProjectDetail from "../components/projects/EditProjectDetail";
 import { app, auth } from "../firebase-config";
 
 const Projects = ({ status, setStatus }) => {
@@ -13,6 +14,8 @@ const Projects = ({ status, setStatus }) => {
 
   const [projectList, setProjectList] = useState();
   const [projectSelected, setProjectSelected] = useState();
+  const [createPJClicked, setCreatePJClicked] = useState(false);
+  const [editPJClicked, setEditPJClicked] = useState(false);
 
   useEffect(() => {
     //驗證登入狀態，若未登入則轉導回首頁
@@ -36,12 +39,23 @@ const Projects = ({ status, setStatus }) => {
         setProjectSelected={setProjectSelected}
         projectList={projectList}
         setProjectList={setProjectList}
+        status={status}
+        setStatus={setStatus}
+        setCreatePJClicked={setCreatePJClicked}
+        setEditPJClicked={setEditPJClicked}
       />
-      {(projectList && projectList.length > 0) || projectSelected ? (
+      {createPJClicked || editPJClicked ? (
+        <EditProjectDetail
+          status={status}
+          setStatus={setStatus}
+          projectSelected={projectSelected}
+        />
+      ) : (projectList && projectList.length > 0) || projectSelected ? (
         <ProjectDetail
           projectSelected={projectSelected}
           status={status}
           setStatus={setStatus}
+          setEditPJClicked={setEditPJClicked}
         />
       ) : (
         <EmptyMessage

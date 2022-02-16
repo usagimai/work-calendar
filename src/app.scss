@@ -115,6 +115,18 @@ a {
   }
 }
 
+.transparent-backdrop {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 12;
+  cursor: auto;
+}
+
 input:-internal-autofill-selected {
   box-shadow: 0 0 0 50px white inset;
 }
@@ -152,6 +164,21 @@ select {
   height: 100%; /* 依內容高度 */
   border-radius: 0.4rem;
   background: $primary-medium;
+}
+
+// for react-multi-date-picker
+.small-calendar-container {
+  position: relative;
+  .small-calendar {
+    position: absolute;
+    top: 120%;
+    left: -125%;
+    z-index: 13;
+  }
+}
+.datepicker-container {
+  display: flex;
+  align-items: center;
 }
 
 @import "./components/calendar/calendarStyles";

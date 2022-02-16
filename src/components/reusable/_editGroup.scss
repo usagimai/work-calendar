@@ -5,7 +5,10 @@
   gap: 0.5rem;
   color: $primary-dark;
   line-height: 100%;
+  > div {
+    transform: translateY(5%);
+  }
   .calendar-icon {
-    transform: translateY(-5%);
+    transform: translateY(-3%);
   }
 }
