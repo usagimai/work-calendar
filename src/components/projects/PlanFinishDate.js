@@ -28,7 +28,7 @@ const PlanFinishDate = ({
 
   //依據status呈現不同內容
   useEffect(() => {
-    if (!projectData) return;
+    if (!projectData || !status) return;
 
     switch (status.project) {
       case "create":
@@ -52,48 +52,50 @@ const PlanFinishDate = ({
           projectData={projectData}
         />
       )}
-      <div className="plan-finish-date">
-        <div className="m-text red-color">
-          {status.project === "view"
-            ? projectData.planFinishDate
-            : planFinishDateValue !== "待設定"
-            ? planFinishDateValue
-            : null}
+      {status && projectData && (
+        <div className="plan-finish-date">
+          <div className="m-text red-color">
+            {status.project === "view"
+              ? projectData.planFinishDate
+              : planFinishDateValue !== "待設定"
+              ? planFinishDateValue
+              : null}
+          </div>
+          <div className="m-text">專案預定完成日</div>
+          {status.project === "view" ? (
+            <div></div>
+          ) : planFinishDateValue === "待設定" ? (
+            <DatePicker
+              value={planFinishDateValue}
+              onChange={handlePlanFinishDateChange}
+              className="teal"
+              render={(value, openCalendar) => {
+                return (
+                  <div onClick={openCalendar} className="datepicker-container">
+                    <SelectCalendar text="選擇" />
+                  </div>
+                );
+              }}
+            />
+          ) : (
+            <DatePicker
+              value={planFinishDateValue}
+              onChange={handlePlanFinishDateChange}
+              className="teal"
+              render={(value, openCalendar) => {
+                return (
+                  <div onClick={openCalendar} className="datepicker-container">
+                    <SelectCalendar text="編輯" />
+                  </div>
+                );
+              }}
+            />
+          )}
+          <div className="s-text pointer" onClick={handleCreatePJWork}>
+            新增工作細項 ＋
+          </div>
         </div>
-        <div className="m-text">專案預定完成日</div>
-        {status.project === "view" ? (
-          <div></div>
-        ) : planFinishDateValue === "待設定" ? (
-          <DatePicker
-            value={planFinishDateValue}
-            onChange={handlePlanFinishDateChange}
-            className="teal"
-            render={(value, openCalendar) => {
-              return (
-                <div onClick={openCalendar} className="datepicker-container">
-                  <SelectCalendar text="選擇" />
-                </div>
-              );
-            }}
-          />
-        ) : (
-          <DatePicker
-            value={planFinishDateValue}
-            onChange={handlePlanFinishDateChange}
-            className="teal"
-            render={(value, openCalendar) => {
-              return (
-                <div onClick={openCalendar} className="datepicker-container">
-                  <SelectCalendar text="編輯" />
-                </div>
-              );
-            }}
-          />
-        )}
-        <div className="s-text pointer" onClick={handleCreatePJWork}>
-          新增工作細項 ＋
-        </div>
-      </div>
+      )}
     </>
   );
 };

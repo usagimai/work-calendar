@@ -24,7 +24,7 @@ const EditProjectInfo = ({ status, projectData }) => {
 
   //依據status呈現不同內容
   useEffect(() => {
-    if (!projectData) return;
+    if (!projectData || !status) return;
 
     switch (status.project) {
       case "create":
@@ -46,7 +46,7 @@ const EditProjectInfo = ({ status, projectData }) => {
 
   return (
     <>
-      {projectData && (
+      {title && projectData && (
         <div className="edit-project-info">
           <DecorationTitle title={title} fontSize="l" />
           <form>
