@@ -12,15 +12,9 @@ const ScheduleOne = ({ work, projectData, status, setStatus }) => {
   const [smallCalendarOpen, setSmallCalendarOpen] = useState(false);
 
   const handleEditPJWork = () => {
-    switch (status.page) {
-      case "PJ":
-        setPjEditWorkOpen(true);
-        setStatus({ ...status, action: "edit-pj-work" });
-        blockScroll();
-        break;
-      default:
-        break;
-    }
+    setPjEditWorkOpen(true);
+    setStatus({ ...status, work: "edit-pj" });
+    blockScroll();
   };
 
   useEffect(() => {
@@ -42,7 +36,6 @@ const ScheduleOne = ({ work, projectData, status, setStatus }) => {
       {pjEditWorkOpen && (
         <EditWork
           status={status}
-          setStatus={setStatus}
           allowScroll={allowScroll}
           setPjEditWorkOpen={setPjEditWorkOpen}
           projectData={projectData}

@@ -5,19 +5,44 @@ import { formData } from "../../data";
 
 const EditProjectInfo = ({ status, projectData }) => {
   const [title, setTitle] = useState();
+  const [titleValue, setTitleValue] = useState();
+  const [shortTitleValue, setShortTitleValue] = useState();
+  const [infoValue, setInfoValue] = useState();
 
+  //管理各項目內容state
+  const handleTitleChange = (e) => {
+    setTitleValue(e.target.value);
+  };
+
+  const handleShortTitleChange = (e) => {
+    setShortTitleValue(e.target.value);
+  };
+
+  const handleInfoChange = (e) => {
+    setInfoValue(e.target.value);
+  };
+
+  //依據status呈現不同內容
   useEffect(() => {
-    switch (status.action) {
-      case "create-project":
+    if (!projectData) return;
+
+    switch (status.project) {
+      case "create":
         setTitle("建立新專案");
+        setTitleValue();
+        setShortTitleValue();
+        setInfoValue();
         break;
-      case "edit-project":
+      case "edit":
         setTitle("編輯專案設定");
+        setTitleValue(projectData.title);
+        setShortTitleValue(projectData.shortTitle);
+        setInfoValue(projectData.info);
         break;
       default:
         break;
     }
-  }, []);
+  }, [projectData, status]);
 
   return (
     <>
@@ -33,9 +58,11 @@ const EditProjectInfo = ({ status, projectData }) => {
               id="project-name"
               maxLength="20"
               className="s-text"
-              value={projectData.title}
+              value={titleValue || ""}
+              onChange={handleTitleChange}
             />
             <div className="xs-text gray-color">{formData.limit20}</div>
+
             <label htmlFor="project-simple" className="m-text">
               專案簡稱
             </label>
@@ -44,9 +71,11 @@ const EditProjectInfo = ({ status, projectData }) => {
               id="project-simple"
               maxLength="5"
               className="s-text"
-              value={projectData.shortTitle}
+              value={shortTitleValue || ""}
+              onChange={handleShortTitleChange}
             />
             <div className="xs-text gray-color">{formData.limit5}</div>
+
             <label htmlFor="project-detail-info" className="m-text">
               專案說明
               <br />
@@ -58,7 +87,8 @@ const EditProjectInfo = ({ status, projectData }) => {
               id="project-detail-info"
               maxLength="70"
               className="s-text"
-              value={projectData.info}
+              value={infoValue || ""}
+              onChange={handleInfoChange}
             ></textarea>
             <div className="xs-text gray-color">{formData.limit70}</div>
           </form>

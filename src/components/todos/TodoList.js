@@ -56,7 +56,7 @@ const TodoList = ({ findMethod, status, setStatus }) => {
 
   const handleCreateWork = () => {
     setTdEditWorkOpen(true);
-    setStatus({ ...status, action: "create-td-work" });
+    setStatus({ ...status, work: "create-td" });
     blockScroll();
   };
 

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 
 import { DecorationTitle } from "../reusable/DecorationTitle";
 import { IconSelector } from "../reusable/IconSelector";
@@ -25,7 +24,7 @@ const ProjectList = ({
   });
 
   const handleCreatePJClicked = () => {
-    setStatus({ ...status, action: "create-project" });
+    setStatus({ ...status, project: "create" });
     setCreatePJClicked(true);
   };
 

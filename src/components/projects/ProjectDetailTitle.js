@@ -8,7 +8,7 @@ const ProjectDetailTitle = ({
 }) => {
   const handleEditPJClicked = () => {
     setEditPJClicked(true);
-    setStatus({ ...status, action: "edit-project" });
+    setStatus({ ...status, project: "edit" });
   };
 
   return (

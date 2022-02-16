@@ -176,6 +176,10 @@ select {
     z-index: 13;
   }
 }
+.datepicker-container {
+  display: flex;
+  align-items: center;
+}
 
 @import "./components/calendar/calendarStyles";
 @import "react-big-calendar/lib/sass/styles";

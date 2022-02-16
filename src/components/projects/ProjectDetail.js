@@ -23,6 +23,11 @@ const ProjectDetail = ({
     );
   }, [projects, projectSelected]);
 
+  useEffect(() => {
+    //設定操作status的「動作資訊」(若只瀏覽專案的話，不顯示選擇/編輯日期的icon)
+    setStatus({ ...status, project: "view" });
+  }, []);
+
   return (
     <>
       {projectData && (

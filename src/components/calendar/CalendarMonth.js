@@ -22,9 +22,9 @@ const CalendarMonth = ({ status, setStatus }) => {
 
   const handleEventPopover = (eventOne) => {
     if (eventOne.resource[0] === "projects") {
-      setStatus({ ...status, action: "edit-pj-work" });
+      setStatus({ ...status, work: "edit-pj" });
     } else {
-      setStatus({ ...status, action: "edit-td-work" });
+      setStatus({ ...status, work: "edit-td" });
     }
 
     setEventPopover(true);

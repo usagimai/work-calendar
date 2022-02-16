@@ -13,7 +13,7 @@ const TodoListOne = ({ todo, status, setStatus }) => {
 
   const handleEditTDWork = () => {
     setTdEditWorkOpen(true);
-    setStatus({ ...status, action: "edit-td-work" });
+    setStatus({ ...status, work: "edit-td" });
     blockScroll();
   };
 
@@ -36,7 +36,6 @@ const TodoListOne = ({ todo, status, setStatus }) => {
       {tdEditWorkOpen && (
         <EditWork
           status={status}
-          setStatus={setStatus}
           allowScroll={allowScroll}
           setTdEditWorkOpen={setTdEditWorkOpen}
           todo={todo}

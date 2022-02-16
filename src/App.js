@@ -21,7 +21,7 @@ function App() {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState();
-  const [status, setStatus] = useState({ page: "", action: "" });
+  const [status, setStatus] = useState({ page: "", project: "", work: "" });
 
   //使用Firebase的功能監聽使用者是否登入(若為登入，會從Firebase接收到該使用者的資訊，包含email、UID等)
   useEffect(() => {

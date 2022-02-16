@@ -31,7 +31,7 @@ const EditProjectDetail = ({ status, setStatus, projectSelected }) => {
         setStatus={setStatus}
         projectData={projectData}
       />
-      {status.action === "edit-project" && (
+      {status.project === "edit" && (
         <EditProjectFinal status={status} projectData={projectData} />
       )}
 
