@@ -119,6 +119,16 @@ const EditWork = ({
     const today = moment(new Date()).format("YYYYMMDD");
     const time = new Date().getTime();
 
+    const handleCreateEditPJ = () => {
+      dispatch(loadProjects());
+      handleEditWorkClose();
+    };
+
+    const handleCreateEditTD = () => {
+      dispatch(loadTodos());
+      handleEditWorkClose();
+    };
+
     switch (status.work) {
       case "create-pj":
         if (status.project === "view") {
@@ -136,16 +146,10 @@ const EditWork = ({
             },
           ];
 
-          //重複待彙整
-          const handleCreatePJ = () => {
-            dispatch(loadProjects());
-            handleEditWorkClose();
-          };
-
           updateDoc(doc(db, "projects", projectData.id), {
             works: WorkAddedArr,
           })
-            .then(() => handleCreatePJ())
+            .then(() => handleCreateEditPJ())
             .catch((error) => {
               console.log("create td error");
             });
@@ -173,22 +177,15 @@ const EditWork = ({
           handleEditWorkClose();
           setIsWorkBoxOpen(false);
         }
-
         break;
+
       case "edit-pj":
         if (status.project === "view") {
           //在「閱覽專案」的頁面，編輯好的工作細項直接存至firestore
-
-          //重複待彙整
-          const handleEditPJ = () => {
-            dispatch(loadProjects());
-            handleEditWorkClose();
-          };
-
           updateDoc(doc(db, "projects", projectData.id), {
             works: WorkEditedArr,
           })
-            .then(() => handleEditPJ())
+            .then(() => handleCreateEditPJ())
             .catch((error) => {
               console.log("edit pj error");
             });
@@ -203,15 +200,9 @@ const EditWork = ({
           handleEditWorkClose();
           setIsWorkBoxOpen(false);
         }
-
         break;
-      case "create-td":
-        //重複待彙整
-        const handleCreateTD = () => {
-          dispatch(loadTodos());
-          handleEditWorkClose();
-        };
 
+      case "create-td":
         setDoc(doc(db, "todos", `${today}_${time}`), {
           email: user.email,
           createDateTime: `${today}${time}`,
@@ -221,19 +212,13 @@ const EditWork = ({
           todoDate: workValue.todoDate,
           finishDate: "未完成",
         })
-          .then(() => handleCreateTD())
+          .then(() => handleCreateEditTD())
           .catch((error) => {
             console.log("create td error");
           });
-
         break;
-      case "edit-td":
-        //重複待彙整
-        const handleEditTD = () => {
-          dispatch(loadTodos());
-          handleEditWorkClose();
-        };
 
+      case "edit-td":
         updateDoc(doc(db, "todos", todo.id), {
           deadline: workValue.deadline,
           content: workValue.content,
@@ -241,12 +226,12 @@ const EditWork = ({
           todoDate: workValue.todoDate,
           finishDate: workValue.finishDate,
         })
-          .then(() => handleEditTD())
+          .then(() => handleCreateEditTD())
           .catch((error) => {
             console.log("edit td error");
           });
-
         break;
+
       default:
         break;
     }
@@ -254,7 +239,6 @@ const EditWork = ({
 
   useEffect(() => {
     //編輯/刪除工作細項用Array
-
     if (status.project === "view") {
       //「閱覽專案」頁面用 (存firestore)
       if (!work || !projectData) return;
