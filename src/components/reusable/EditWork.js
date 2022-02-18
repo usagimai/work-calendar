@@ -33,15 +33,17 @@ const EditWork = ({
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState();
-  const [deadlineValue, setDeadlineValue] = useState();
-  const [todoDateValue, setTodoDateValue] = useState();
-  const [contentValue, setContentValue] = useState();
-  const [remarkValue, setRemarkValue] = useState("");
-  const [finishDateValue, setFinishDateValue] = useState();
   const [alertMessage, setAlertMessage] = useState(false);
   const [deleteWorkBoxOpen, setDeleteWorkBoxOpen] = useState(false);
   const [otherWorksArr, setOtherWorksArr] = useState();
   const [WorkEditedArr, setWorkEditedArr] = useState();
+  const [workValue, setWorkValue] = useState({
+    deadline: "待設定",
+    todoDate: [],
+    content: "",
+    remark: "",
+    finishDate: "未完成",
+  });
 
   const handleEditWorkClose = () => {
     switch (status.page) {
@@ -59,37 +61,53 @@ const EditWork = ({
   };
 
   //管理各項目內容state
+  const handleValueChange = (e) => {
+    const { name, value } = e.target;
+    setWorkValue((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  };
+
   const handleDeadlineChange = (value) => {
-    setDeadlineValue(moment(value.toDate()).format("YYYY/MM/DD"));
+    setWorkValue((prevValue) => {
+      return {
+        ...prevValue,
+        deadline: moment(value.toDate()).format("YYYY/MM/DD"),
+      };
+    });
   };
 
   const handleTodoDateChange = (valueArr) => {
-    const NewValueArr = valueArr.map((value) =>
-      moment(value.toDate()).format("YYYY/MM/DD")
-    );
-    setTodoDateValue(NewValueArr);
-  };
-
-  const handleContentChange = (e) => {
-    setContentValue(e.target.value);
-  };
-
-  const handleRemarkChange = (e) => {
-    setRemarkValue(e.target.value);
+    setWorkValue((prevValue) => {
+      return {
+        ...prevValue,
+        todoDate: valueArr.map((value) =>
+          moment(value.toDate()).format("YYYY/MM/DD")
+        ),
+      };
+    });
   };
 
   const handleFinishDateChange = (value) => {
-    setFinishDateValue(moment(value.toDate()).format("YYYY/MM/DD"));
+    setWorkValue((prevValue) => {
+      return {
+        ...prevValue,
+        finishDate: moment(value.toDate()).format("YYYY/MM/DD"),
+      };
+    });
   };
 
   //點「儲存」後的處理流程
   const handleWorkSubmit = () => {
     //若有必填但未填的項目，顯示alert message
     if (
-      deadlineValue === "待設定" ||
-      !todoDateValue ||
-      todoDateValue.length === 0 ||
-      !contentValue
+      workValue.deadline === "待設定" ||
+      !workValue.todoDate ||
+      workValue.todoDate.length === 0 ||
+      !workValue.content
     ) {
       setAlertMessage(true);
       return;
@@ -110,10 +128,10 @@ const EditWork = ({
             ...prevWorks,
             {
               id: `${today}_${time}`,
-              deadline: deadlineValue,
-              content: contentValue,
-              remark: remarkValue,
-              todoDate: todoDateValue,
+              deadline: workValue.deadline,
+              content: workValue.content,
+              remark: workValue.remark,
+              todoDate: workValue.todoDate,
               finishDate: "未完成",
             },
           ];
@@ -138,10 +156,10 @@ const EditWork = ({
             ...prevWorks,
             {
               id: `${today}_${time}`,
-              deadline: deadlineValue,
-              content: contentValue,
-              remark: remarkValue,
-              todoDate: todoDateValue,
+              deadline: workValue.deadline,
+              content: workValue.content,
+              remark: workValue.remark,
+              todoDate: workValue.todoDate,
               finishDate: "未完成",
             },
           ];
@@ -197,10 +215,10 @@ const EditWork = ({
         setDoc(doc(db, "todos", `${today}_${time}`), {
           email: user.email,
           createDateTime: `${today}${time}`,
-          deadline: deadlineValue,
-          content: contentValue,
-          remark: remarkValue,
-          todoDate: todoDateValue,
+          deadline: workValue.deadline,
+          content: workValue.content,
+          remark: workValue.remark,
+          todoDate: workValue.todoDate,
           finishDate: "未完成",
         })
           .then(() => handleCreateTD())
@@ -217,11 +235,11 @@ const EditWork = ({
         };
 
         updateDoc(doc(db, "todos", todo.id), {
-          deadline: deadlineValue,
-          content: contentValue,
-          remark: remarkValue,
-          todoDate: todoDateValue,
-          finishDate: finishDateValue,
+          deadline: workValue.deadline,
+          content: workValue.content,
+          remark: workValue.remark,
+          todoDate: workValue.todoDate,
+          finishDate: workValue.finishDate,
         })
           .then(() => handleEditTD())
           .catch((error) => {
@@ -246,11 +264,11 @@ const EditWork = ({
         return prevWork.id === work.id;
       });
       const updatedWork = Object.assign({}, updateWork, {
-        deadline: deadlineValue,
-        content: contentValue,
-        remark: remarkValue,
-        todoDate: todoDateValue,
-        finishDate: finishDateValue,
+        deadline: workValue.deadline,
+        content: workValue.content,
+        remark: workValue.remark,
+        todoDate: workValue.todoDate,
+        finishDate: workValue.finishDate,
       });
       const otherPrevWorks = prevWorks.filter((prevWork) => {
         return prevWork.id !== work.id;
@@ -268,11 +286,11 @@ const EditWork = ({
         return prevWork.id === work.id;
       });
       const updatedWork = Object.assign({}, updateWork, {
-        deadline: deadlineValue,
-        content: contentValue,
-        remark: remarkValue,
-        todoDate: todoDateValue,
-        finishDate: finishDateValue,
+        deadline: workValue.deadline,
+        content: workValue.content,
+        remark: workValue.remark,
+        todoDate: workValue.todoDate,
+        finishDate: workValue.finishDate,
       });
       const otherPrevWorks = prevWorks.filter((prevWork) => {
         return prevWork.id !== work.id;
@@ -282,44 +300,53 @@ const EditWork = ({
       const newWorks = [...otherPrevWorks, updatedWork];
       setWorkEditedArr(newWorks);
     }
-  }, [
-    projectData,
-    work,
-    formValue,
-    deadlineValue,
-    contentValue,
-    remarkValue,
-    todoDateValue,
-    finishDateValue,
-  ]);
+  }, [projectData, work, formValue, workValue]);
 
   //依據status呈現不同內容
   useEffect(() => {
     switch (status.work) {
       case "create-pj":
         setTitle(["新增工作細項", "", ""]);
-        setDeadlineValue("待設定");
+        setWorkValue((prevValue) => {
+          return {
+            ...prevValue,
+            deadline: "待設定",
+          };
+        });
         break;
+
       case "edit-pj":
         setTitle(["編輯工作細項", "工作細項完成 / 刪除", "刪除工作細項"]);
-        setDeadlineValue(work.deadline);
-        setTodoDateValue(work.todoDate);
-        setContentValue(work.content);
-        setRemarkValue(work.remark);
-        setFinishDateValue(work.finishDate);
+        setWorkValue({
+          deadline: work.deadline,
+          content: work.content,
+          remark: work.remark,
+          todoDate: work.todoDate,
+          finishDate: work.finishDate,
+        });
         break;
+
       case "create-td":
         setTitle(["新增待辦事項", "", ""]);
-        setDeadlineValue("待設定");
+        setWorkValue((prevValue) => {
+          return {
+            ...prevValue,
+            deadline: "待設定",
+          };
+        });
         break;
+
       case "edit-td":
         setTitle(["編輯待辦事項", "待辦事項完成 / 刪除", "刪除待辦事項"]);
-        setDeadlineValue(todo.deadline);
-        setTodoDateValue(todo.todoDate);
-        setContentValue(todo.content);
-        setRemarkValue(todo.remark);
-        setFinishDateValue(todo.finishDate);
+        setWorkValue({
+          deadline: todo.deadline,
+          content: todo.content,
+          remark: todo.remark,
+          todoDate: todo.todoDate,
+          finishDate: todo.finishDate,
+        });
         break;
+
       default:
         break;
     }
@@ -353,12 +380,12 @@ const EditWork = ({
               <div className="edit-work-info">
                 <div className="m-text">完成期限</div>
                 <div>
-                  {deadlineValue !== "待設定" && (
-                    <div className="m-text">{deadlineValue}</div>
+                  {workValue.deadline !== "待設定" && (
+                    <div className="m-text">{workValue.deadline}</div>
                   )}
-                  {deadlineValue === "待設定" ? (
+                  {workValue.deadline === "待設定" ? (
                     <DatePicker
-                      value={deadlineValue}
+                      value={workValue.deadline}
                       onChange={handleDeadlineChange}
                       className="teal"
                       render={(value, openCalendar) => {
@@ -371,7 +398,7 @@ const EditWork = ({
                     />
                   ) : (
                     <DatePicker
-                      value={deadlineValue}
+                      value={workValue.deadline}
                       onChange={handleDeadlineChange}
                       className="teal"
                       render={(value, openCalendar) => {
@@ -387,9 +414,9 @@ const EditWork = ({
 
                 <div className="m-text">執行日期</div>
                 <div className="datepicker-container">
-                  {!todoDateValue || todoDateValue.length === 0 ? (
+                  {!workValue.todoDate || workValue.todoDate.length === 0 ? (
                     <DatePicker
-                      value={todoDateValue}
+                      value={workValue.todoDate}
                       multiple="true"
                       onChange={handleTodoDateChange}
                       className="teal"
@@ -404,7 +431,7 @@ const EditWork = ({
                     />
                   ) : (
                     <DatePicker
-                      value={todoDateValue}
+                      value={workValue.todoDate}
                       multiple="true"
                       onChange={handleTodoDateChange}
                       className="teal"
@@ -423,10 +450,11 @@ const EditWork = ({
                 <div className="m-text">執行內容</div>
                 <input
                   type="text"
+                  name="content"
                   maxLength="30"
                   className="s-text"
-                  value={contentValue || ""}
-                  onChange={handleContentChange}
+                  value={workValue.content}
+                  onChange={handleValueChange}
                 />
                 <div></div>
                 <div className="xs-text gray-color limit">
@@ -441,10 +469,11 @@ const EditWork = ({
                   </span>
                 </div>
                 <textarea
+                  name="remark"
                   maxLength="100"
                   className="s-text"
-                  value={remarkValue}
-                  onChange={handleRemarkChange}
+                  value={workValue.remark}
+                  onChange={handleValueChange}
                 ></textarea>
                 <div></div>
                 <div className="xs-text gray-color limit">
@@ -459,12 +488,12 @@ const EditWork = ({
                   <div className="edit-work-final">
                     <div className="m-text">實際完成日</div>
                     <div>
-                      {finishDateValue !== "未完成" && (
-                        <div className="m-text">{finishDateValue}</div>
+                      {workValue.finishDate !== "未完成" && (
+                        <div className="m-text">{workValue.finishDate}</div>
                       )}
-                      {finishDateValue === "未完成" ? (
+                      {workValue.finishDate === "未完成" ? (
                         <DatePicker
-                          value={finishDateValue}
+                          value={workValue.finishDate}
                           onChange={handleFinishDateChange}
                           className="teal"
                           render={(value, openCalendar) => {
@@ -477,7 +506,7 @@ const EditWork = ({
                         />
                       ) : (
                         <DatePicker
-                          value={finishDateValue}
+                          value={workValue.finishDate}
                           onChange={handleFinishDateChange}
                           className="teal"
                           render={(value, openCalendar) => {
