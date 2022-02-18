@@ -13,12 +13,16 @@ const ScheduleOne = ({
   setStatus,
   formValue,
   setFormValue,
+  setIsWorkBoxOpen,
 }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
   const [smallCalendarOpen, setSmallCalendarOpen] = useState(false);
 
   const handleEditPJWork = () => {
+    if (status.project !== "view") {
+      setIsWorkBoxOpen(true);
+    }
     setPjEditWorkOpen(true);
     setStatus({ ...status, work: "edit-pj" });
     blockScroll();
@@ -49,6 +53,7 @@ const ScheduleOne = ({
           work={work}
           formValue={formValue}
           setFormValue={setFormValue}
+          setIsWorkBoxOpen={setIsWorkBoxOpen}
         />
       )}
 

@@ -12,35 +12,57 @@ const ProjectDetailSchedule = ({
   setFormValue,
   editCancel,
   setEditCancel,
+  isWorkBoxOpen,
+  setIsWorkBoxOpen,
 }) => {
+  //依據status呈現不同內容
   useEffect(() => {
     if (!projectData || !status) return;
 
-    if (status.project === "edit") {
-      if (editCancel) {
-        setFormValue((prevValue) => {
-          return {
-            ...prevValue,
-            works: projectData.works,
-          };
-        });
-        setEditCancel(false);
-      } else {
-        //陣列無法直接比較，應修改判斷「新增工作細項」或「編輯」是是否點開
-        if (
-          formValue.works.length !== 0 &&
-          formValue.works.length !== projectData.works.length
-        ) {
+    switch (status.project) {
+      case "create":
+        //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+        if (isWorkBoxOpen) {
           return;
         } else {
+          //初次進入的狀況 (載入預設值)
+          setFormValue((prevValue) => {
+            return {
+              ...prevValue,
+              works: [],
+            };
+          });
+        }
+        break;
+
+      case "edit":
+        //點選取消的狀況 (恢復資料庫中的資料)
+        if (editCancel) {
           setFormValue((prevValue) => {
             return {
               ...prevValue,
               works: projectData.works,
             };
           });
+          setEditCancel(false);
+        } else {
+          //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+          if (isWorkBoxOpen) {
+            return;
+          } else {
+            //初次進入的狀況 (載入資料庫中的資料)
+            setFormValue((prevValue) => {
+              return {
+                ...prevValue,
+                works: projectData.works,
+              };
+            });
+          }
         }
-      }
+        break;
+
+      default:
+        break;
     }
   }, [projectData, status]);
 
@@ -58,6 +80,8 @@ const ProjectDetailSchedule = ({
               setFormValue={setFormValue}
               editCancel={editCancel}
               setEditCancel={setEditCancel}
+              isWorkBoxOpen={isWorkBoxOpen}
+              setIsWorkBoxOpen={setIsWorkBoxOpen}
             />
             <div className="schedule-group">
               <div className="schedule-title center s-text">完成期限</div>
@@ -90,6 +114,8 @@ const ProjectDetailSchedule = ({
                     setFormValue={setFormValue}
                     editCancel={editCancel}
                     setEditCancel={setEditCancel}
+                    isWorkBoxOpen={isWorkBoxOpen}
+                    setIsWorkBoxOpen={setIsWorkBoxOpen}
                   />
                 ))}
             </div>

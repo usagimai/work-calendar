@@ -28,6 +28,7 @@ const EditProjectDetail = ({
   const dispatch = useDispatch();
 
   const [alertMessage, setAlertMessage] = useState(false);
+  const [isWorkBoxOpen, setIsWorkBoxOpen] = useState(false);
   const [editCancel, setEditCancel] = useState(false);
   const [projectData, setProjectData] = useState();
   const [formValue, setFormValue] = useState({
@@ -130,15 +131,6 @@ const EditProjectDetail = ({
     sessionStorage.setItem("projectFormValue", JSON.stringify(formValue));
   }, [formValue]);
 
-  //若session storage中有資料就讀入session storage中的資料
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("projectFormValue") === "undefined") return;
-
-  //   if (status.project === "edit") {
-  //     setFormValue(JSON.parse(sessionStorage.getItem("projectFormValue")));
-  //   }
-  // }, []);
-
   return (
     <div className="edit-project">
       <EditProjectInfo
@@ -148,6 +140,7 @@ const EditProjectDetail = ({
         setFormValue={setFormValue}
         editCancel={editCancel}
         setEditCancel={setEditCancel}
+        isWorkBoxOpen={isWorkBoxOpen}
       />
       <ProjectDetailSchedule
         status={status}
@@ -157,6 +150,8 @@ const EditProjectDetail = ({
         setFormValue={setFormValue}
         editCancel={editCancel}
         setEditCancel={setEditCancel}
+        isWorkBoxOpen={isWorkBoxOpen}
+        setIsWorkBoxOpen={setIsWorkBoxOpen}
       />
       {status.project === "edit" && (
         <EditProjectFinal
@@ -167,6 +162,7 @@ const EditProjectDetail = ({
           editCancel={editCancel}
           setEditCancel={setEditCancel}
           setProjectDeleted={setProjectDeleted}
+          isWorkBoxOpen={isWorkBoxOpen}
         />
       )}
 

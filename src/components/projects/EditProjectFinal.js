@@ -16,6 +16,7 @@ const EditProjectFinal = ({
   editCancel,
   setEditCancel,
   setProjectDeleted,
+  isWorkBoxOpen,
 }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [deleteProjectBoxOpen, setDeleteProjectBoxOpen] = useState(false);
@@ -38,30 +39,50 @@ const EditProjectFinal = ({
   useEffect(() => {
     if (!projectData || !status) return;
 
-    if (status.project === "edit") {
-      if (editCancel) {
-        setFormValue((prevValue) => {
-          return {
-            ...prevValue,
-            finishDate: projectData.finishDate,
-          };
-        });
-        setEditCancel(false);
-      } else {
-        if (
-          formValue.finishDate !== "進行中定" &&
-          formValue.finishDate !== projectData.finishDate
-        ) {
+    switch (status.project) {
+      case "create":
+        //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+        if (isWorkBoxOpen) {
           return;
         } else {
+          //初次進入的狀況 (載入預設值)
+          setFormValue((prevValue) => {
+            return {
+              ...prevValue,
+              finishDate: "進行中",
+            };
+          });
+        }
+        break;
+
+      case "edit":
+        //點選取消的狀況 (恢復資料庫中的資料)
+        if (editCancel) {
           setFormValue((prevValue) => {
             return {
               ...prevValue,
               finishDate: projectData.finishDate,
             };
           });
+          setEditCancel(false);
+        } else {
+          //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+          if (isWorkBoxOpen) {
+            return;
+          } else {
+            //初次進入的狀況 (載入資料庫中的資料)
+            setFormValue((prevValue) => {
+              return {
+                ...prevValue,
+                finishDate: projectData.finishDate,
+              };
+            });
+          }
         }
-      }
+        break;
+
+      default:
+        break;
     }
   }, [projectData, status]);
 

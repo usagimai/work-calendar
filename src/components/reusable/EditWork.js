@@ -27,6 +27,7 @@ const EditWork = ({
   todo,
   formValue,
   setFormValue,
+  setIsWorkBoxOpen,
 }) => {
   const user = auth.currentUser;
   const dispatch = useDispatch();
@@ -152,6 +153,7 @@ const EditWork = ({
             };
           });
           handleEditWorkClose();
+          setIsWorkBoxOpen(false);
         }
 
         break;
@@ -181,6 +183,7 @@ const EditWork = ({
             };
           });
           handleEditWorkClose();
+          setIsWorkBoxOpen(false);
         }
 
         break;

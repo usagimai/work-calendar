@@ -14,11 +14,17 @@ const PlanFinishDate = ({
   setFormValue,
   editCancel,
   setEditCancel,
+  isWorkBoxOpen,
+  setIsWorkBoxOpen,
 }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
 
   const handleCreatePJWork = () => {
+    if (status.project !== "view") {
+      setIsWorkBoxOpen(true);
+    }
+
     setPjEditWorkOpen(true);
     setStatus({ ...status, work: "create-pj" });
     blockScroll();
@@ -37,30 +43,50 @@ const PlanFinishDate = ({
   useEffect(() => {
     if (!projectData || !status) return;
 
-    if (status.project === "edit") {
-      if (editCancel) {
-        setFormValue((prevValue) => {
-          return {
-            ...prevValue,
-            planFinishDate: projectData.planFinishDate,
-          };
-        });
-        setEditCancel(false);
-      } else {
-        if (
-          formValue.planFinishDate !== "待設定" &&
-          formValue.planFinishDate !== projectData.planFinishDate
-        ) {
+    switch (status.project) {
+      case "create":
+        //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+        if (isWorkBoxOpen) {
           return;
         } else {
+          //初次進入的狀況 (載入預設值)
+          setFormValue((prevValue) => {
+            return {
+              ...prevValue,
+              planFinishDate: "待設定",
+            };
+          });
+        }
+        break;
+
+      case "edit":
+        //點選取消的狀況 (恢復資料庫中的資料)
+        if (editCancel) {
           setFormValue((prevValue) => {
             return {
               ...prevValue,
               planFinishDate: projectData.planFinishDate,
             };
           });
+          setEditCancel(false);
+        } else {
+          //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+          if (isWorkBoxOpen) {
+            return;
+          } else {
+            //初次進入的狀況 (載入資料庫中的資料)
+            setFormValue((prevValue) => {
+              return {
+                ...prevValue,
+                planFinishDate: projectData.planFinishDate,
+              };
+            });
+          }
         }
-      }
+        break;
+
+      default:
+        break;
     }
   }, [projectData, status]);
 
@@ -74,6 +100,7 @@ const PlanFinishDate = ({
           projectData={projectData}
           formValue={formValue}
           setFormValue={setFormValue}
+          setIsWorkBoxOpen={setIsWorkBoxOpen}
         />
       )}
       {status && (projectData || formValue) && (

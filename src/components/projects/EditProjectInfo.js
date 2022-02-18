@@ -10,6 +10,7 @@ const EditProjectInfo = ({
   setFormValue,
   editCancel,
   setEditCancel,
+  isWorkBoxOpen,
 }) => {
   const [title, setTitle] = useState();
 
@@ -30,12 +31,29 @@ const EditProjectInfo = ({
     switch (status.project) {
       case "create":
         setTitle("建立新專案");
+
+        //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+        if (isWorkBoxOpen) {
+          return;
+        } else {
+          //初次進入的狀況 (載入預設值)
+          setFormValue((prevValue) => {
+            return {
+              ...prevValue,
+              title: "",
+              shortTitle: "",
+              info: "",
+            };
+          });
+        }
         break;
+
       case "edit":
         if (!projectData) return;
 
         setTitle("編輯專案設定");
 
+        //點選取消的狀況 (恢復資料庫中的資料)
         if (editCancel) {
           setFormValue((prevValue) => {
             return {
@@ -47,14 +65,11 @@ const EditProjectInfo = ({
           });
           setEditCancel(false);
         } else {
-          if (
-            (formValue.title && formValue.title !== projectData.title) ||
-            (formValue.shortTitle &&
-              formValue.shortTitle !== projectData.shortTitle) ||
-            (formValue.info && formValue.info !== projectData.info)
-          ) {
+          //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
+          if (isWorkBoxOpen) {
             return;
           } else {
+            //初次進入的狀況 (載入資料庫中的資料)
             setFormValue((prevValue) => {
               return {
                 ...prevValue,
