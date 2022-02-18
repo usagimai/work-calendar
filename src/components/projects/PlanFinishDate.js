@@ -10,8 +10,10 @@ const PlanFinishDate = ({
   projectData,
   status,
   setStatus,
-  planFinishDateValue,
-  setPlanFinishDateValue,
+  formValue,
+  setFormValue,
+  editCancel,
+  setEditCancel,
 }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
@@ -22,23 +24,43 @@ const PlanFinishDate = ({
     blockScroll();
   };
 
-  const handlePlanFinishDateChange = (value) => {
-    setPlanFinishDateValue(moment(value.toDate()).format("YYYY/MM/DD"));
+  const handleValueChange = (value) => {
+    setFormValue((prevValue) => {
+      return {
+        ...prevValue,
+        planFinishDate: moment(value.toDate()).format("YYYY/MM/DD"),
+      };
+    });
   };
 
   //依據status呈現不同內容
   useEffect(() => {
     if (!projectData || !status) return;
 
-    switch (status.project) {
-      case "create":
-        setPlanFinishDateValue("待設定");
-        break;
-      case "edit":
-        setPlanFinishDateValue(projectData.planFinishDate);
-        break;
-      default:
-        break;
+    if (status.project === "edit") {
+      if (editCancel) {
+        setFormValue((prevValue) => {
+          return {
+            ...prevValue,
+            planFinishDate: projectData.planFinishDate,
+          };
+        });
+        setEditCancel(false);
+      } else {
+        if (
+          formValue.planFinishDate !== "待設定" &&
+          formValue.planFinishDate !== projectData.planFinishDate
+        ) {
+          return;
+        } else {
+          setFormValue((prevValue) => {
+            return {
+              ...prevValue,
+              planFinishDate: projectData.planFinishDate,
+            };
+          });
+        }
+      }
     }
   }, [projectData, status]);
 
@@ -50,24 +72,26 @@ const PlanFinishDate = ({
           allowScroll={allowScroll}
           setPjEditWorkOpen={setPjEditWorkOpen}
           projectData={projectData}
+          formValue={formValue}
+          setFormValue={setFormValue}
         />
       )}
-      {status && projectData && (
+      {status && (projectData || formValue) && (
         <div className="plan-finish-date">
           <div className="m-text red-color">
             {status.project === "view"
               ? projectData.planFinishDate
-              : planFinishDateValue !== "待設定"
-              ? planFinishDateValue
+              : formValue.planFinishDate !== "待設定"
+              ? formValue.planFinishDate
               : null}
           </div>
           <div className="m-text">專案預定完成日</div>
           {status.project === "view" ? (
             <div></div>
-          ) : planFinishDateValue === "待設定" ? (
+          ) : formValue.planFinishDate === "待設定" ? (
             <DatePicker
-              value={planFinishDateValue}
-              onChange={handlePlanFinishDateChange}
+              value={formValue.planFinishDate}
+              onChange={handleValueChange}
               className="teal"
               render={(value, openCalendar) => {
                 return (
@@ -79,8 +103,8 @@ const PlanFinishDate = ({
             />
           ) : (
             <DatePicker
-              value={planFinishDateValue}
-              onChange={handlePlanFinishDateChange}
+              value={formValue.planFinishDate}
+              onChange={handleValueChange}
               className="teal"
               render={(value, openCalendar) => {
                 return (

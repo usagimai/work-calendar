@@ -14,6 +14,9 @@ const ProjectList = ({
   setStatus,
   setCreatePJClicked,
   setEditPJClicked,
+  isCreateNewPJ,
+  setIsCreateNewPJ,
+  setProjectDeleted,
 }) => {
   const createInfoRef = useRef();
   const [overCreate, setOverCreate] = useState(false);
@@ -24,6 +27,7 @@ const ProjectList = ({
   });
 
   const handleCreatePJClicked = () => {
+    setProjectDeleted(false);
     setStatus({ ...status, project: "create" });
     setCreatePJClicked(true);
   };
@@ -67,6 +71,9 @@ const ProjectList = ({
         setProjectSelected={setProjectSelected}
         setCreatePJClicked={setCreatePJClicked}
         setEditPJClicked={setEditPJClicked}
+        isCreateNewPJ={isCreateNewPJ}
+        setIsCreateNewPJ={setIsCreateNewPJ}
+        setProjectDeleted={setProjectDeleted}
       />
       <div
         className={`xs-text center ${

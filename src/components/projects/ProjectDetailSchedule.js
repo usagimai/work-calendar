@@ -1,11 +1,48 @@
-import { useState } from "react";
+import { useEffect } from "react";
 
 import PlanFinishDate from "./PlanFinishDate";
 import ScheduleOne from "./ScheduleOne";
 import NoSchedule from "./NoSchedule";
 
-const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
-  const [planFinishDateValue, setPlanFinishDateValue] = useState();
+const ProjectDetailSchedule = ({
+  projectData,
+  status,
+  setStatus,
+  formValue,
+  setFormValue,
+  editCancel,
+  setEditCancel,
+}) => {
+  useEffect(() => {
+    if (!projectData || !status) return;
+
+    if (status.project === "edit") {
+      if (editCancel) {
+        setFormValue((prevValue) => {
+          return {
+            ...prevValue,
+            works: projectData.works,
+          };
+        });
+        setEditCancel(false);
+      } else {
+        //陣列無法直接比較，應修改判斷「新增工作細項」或「編輯」是是否點開
+        if (
+          formValue.works.length !== 0 &&
+          formValue.works.length !== projectData.works.length
+        ) {
+          return;
+        } else {
+          setFormValue((prevValue) => {
+            return {
+              ...prevValue,
+              works: projectData.works,
+            };
+          });
+        }
+      }
+    }
+  }, [projectData, status]);
 
   return (
     <>
@@ -17,8 +54,10 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
               projectData={projectData}
               status={status}
               setStatus={setStatus}
-              planFinishDateValue={planFinishDateValue}
-              setPlanFinishDateValue={setPlanFinishDateValue}
+              formValue={formValue}
+              setFormValue={setFormValue}
+              editCancel={editCancel}
+              setEditCancel={setEditCancel}
             />
             <div className="schedule-group">
               <div className="schedule-title center s-text">完成期限</div>
@@ -26,7 +65,7 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
               <div className="schedule-title center s-text">執行日期</div>
               <div className="schedule-title center s-text">實際完成日</div>
               <div></div>
-              {status.project !== "create" &&
+              {status.project === "view" &&
                 projectData &&
                 projectData.works[0] &&
                 projectData.works.map((work) => (
@@ -38,9 +77,26 @@ const ProjectDetailSchedule = ({ projectData, status, setStatus }) => {
                     setStatus={setStatus}
                   />
                 ))}
+              {status.project !== "view" &&
+                formValue.works.length > 0 &&
+                formValue.works.map((work) => (
+                  <ScheduleOne
+                    key={work.id}
+                    work={work}
+                    projectData={formValue}
+                    status={status}
+                    setStatus={setStatus}
+                    formValue={formValue}
+                    setFormValue={setFormValue}
+                    editCancel={editCancel}
+                    setEditCancel={setEditCancel}
+                  />
+                ))}
             </div>
-            {status.project === "create" ? (
-              <NoSchedule />
+            {status.project !== "view" ? (
+              formValue.works.length > 0 ? null : (
+                <NoSchedule />
+              )
             ) : projectData && projectData.works.length === 0 ? (
               <NoSchedule />
             ) : null}

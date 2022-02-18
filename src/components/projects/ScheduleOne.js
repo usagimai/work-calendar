@@ -6,7 +6,14 @@ import { EditPen } from "../reusable/EditGroup";
 import EditWork from "../reusable/EditWork";
 import useScrollBlock from "../../utils/useScrollBlock";
 
-const ScheduleOne = ({ work, projectData, status, setStatus }) => {
+const ScheduleOne = ({
+  work,
+  projectData,
+  status,
+  setStatus,
+  formValue,
+  setFormValue,
+}) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
   const [smallCalendarOpen, setSmallCalendarOpen] = useState(false);
@@ -40,6 +47,8 @@ const ScheduleOne = ({ work, projectData, status, setStatus }) => {
           setPjEditWorkOpen={setPjEditWorkOpen}
           projectData={projectData}
           work={work}
+          formValue={formValue}
+          setFormValue={setFormValue}
         />
       )}
 

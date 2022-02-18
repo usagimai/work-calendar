@@ -9,6 +9,9 @@ const ProjectListArea = ({
   setProjectSelected,
   setCreatePJClicked,
   setEditPJClicked,
+  isCreateNewPJ,
+  setIsCreateNewPJ,
+  setProjectDeleted,
 }) => {
   const projects = useSelector((state) => state.projects.all);
   const firstRendering = useRef(true);
@@ -16,6 +19,7 @@ const ProjectListArea = ({
   const [defaultProject, setDefaultProject] = useState();
 
   const handleProjectSelected = (id) => {
+    setProjectDeleted(false);
     setProjectSelected(id);
     setCreatePJClicked(false);
     setEditPJClicked(false);
@@ -66,11 +70,16 @@ const ProjectListArea = ({
   }, [projectList]);
 
   useEffect(() => {
-    if (!firstRendering.current) return;
-
-    setProjectSelected(defaultProject);
-    if (defaultProject) {
-      firstRendering.current = false;
+    if (firstRendering.current) {
+      setProjectSelected(defaultProject);
+      if (defaultProject) {
+        firstRendering.current = false;
+      }
+    } else {
+      if (isCreateNewPJ) {
+        setProjectSelected(defaultProject);
+        setIsCreateNewPJ(false);
+      }
     }
   }, [defaultProject]);
 

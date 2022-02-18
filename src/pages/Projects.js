@@ -16,6 +16,8 @@ const Projects = ({ status, setStatus }) => {
   const [projectSelected, setProjectSelected] = useState();
   const [createPJClicked, setCreatePJClicked] = useState(false);
   const [editPJClicked, setEditPJClicked] = useState(false);
+  const [isCreateNewPJ, setIsCreateNewPJ] = useState(false);
+  const [projectDeleted, setProjectDeleted] = useState(false);
 
   useEffect(() => {
     //驗證登入狀態，若未登入則轉導回首頁
@@ -43,12 +45,21 @@ const Projects = ({ status, setStatus }) => {
         setStatus={setStatus}
         setCreatePJClicked={setCreatePJClicked}
         setEditPJClicked={setEditPJClicked}
+        isCreateNewPJ={isCreateNewPJ}
+        setIsCreateNewPJ={setIsCreateNewPJ}
+        setProjectDeleted={setProjectDeleted}
       />
-      {createPJClicked || editPJClicked ? (
+      {projectDeleted ? (
+        <EmptyMessage message1="專案已刪除" message2="" />
+      ) : createPJClicked || editPJClicked ? (
         <EditProjectDetail
           status={status}
           setStatus={setStatus}
           projectSelected={projectSelected}
+          setCreatePJClicked={setCreatePJClicked}
+          setEditPJClicked={setEditPJClicked}
+          setIsCreateNewPJ={setIsCreateNewPJ}
+          setProjectDeleted={setProjectDeleted}
         />
       ) : (projectList && projectList.length > 0) || projectSelected ? (
         <ProjectDetail

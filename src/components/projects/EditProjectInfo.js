@@ -3,41 +3,68 @@ import { useEffect, useState } from "react";
 import { DecorationTitle } from "../reusable/DecorationTitle";
 import { formData } from "../../data";
 
-const EditProjectInfo = ({ status, projectData }) => {
+const EditProjectInfo = ({
+  status,
+  projectData,
+  formValue,
+  setFormValue,
+  editCancel,
+  setEditCancel,
+}) => {
   const [title, setTitle] = useState();
-  const [titleValue, setTitleValue] = useState();
-  const [shortTitleValue, setShortTitleValue] = useState();
-  const [infoValue, setInfoValue] = useState();
 
-  //管理各項目內容state
-  const handleTitleChange = (e) => {
-    setTitleValue(e.target.value);
-  };
-
-  const handleShortTitleChange = (e) => {
-    setShortTitleValue(e.target.value);
-  };
-
-  const handleInfoChange = (e) => {
-    setInfoValue(e.target.value);
+  const handleValueChange = (e) => {
+    const { name, value } = e.target;
+    setFormValue((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
   };
 
   //依據status呈現不同內容
   useEffect(() => {
-    if (!projectData || !status) return;
+    if (!status) return;
 
     switch (status.project) {
       case "create":
         setTitle("建立新專案");
-        setTitleValue();
-        setShortTitleValue();
-        setInfoValue();
         break;
       case "edit":
+        if (!projectData) return;
+
         setTitle("編輯專案設定");
-        setTitleValue(projectData.title);
-        setShortTitleValue(projectData.shortTitle);
-        setInfoValue(projectData.info);
+
+        if (editCancel) {
+          setFormValue((prevValue) => {
+            return {
+              ...prevValue,
+              title: projectData.title,
+              shortTitle: projectData.shortTitle,
+              info: projectData.info,
+            };
+          });
+          setEditCancel(false);
+        } else {
+          if (
+            (formValue.title && formValue.title !== projectData.title) ||
+            (formValue.shortTitle &&
+              formValue.shortTitle !== projectData.shortTitle) ||
+            (formValue.info && formValue.info !== projectData.info)
+          ) {
+            return;
+          } else {
+            setFormValue((prevValue) => {
+              return {
+                ...prevValue,
+                title: projectData.title,
+                shortTitle: projectData.shortTitle,
+                info: projectData.info,
+              };
+            });
+          }
+        }
         break;
       default:
         break;
@@ -46,7 +73,7 @@ const EditProjectInfo = ({ status, projectData }) => {
 
   return (
     <>
-      {title && projectData && (
+      {formValue && (
         <div className="edit-project-info">
           <DecorationTitle title={title} fontSize="l" />
           <form>
@@ -56,10 +83,11 @@ const EditProjectInfo = ({ status, projectData }) => {
             <input
               type="text"
               id="project-name"
+              name="title"
               maxLength="20"
               className="s-text"
-              value={titleValue || ""}
-              onChange={handleTitleChange}
+              value={formValue.title || ""}
+              onChange={handleValueChange}
             />
             <div className="xs-text gray-color">{formData.limit20}</div>
 
@@ -69,10 +97,11 @@ const EditProjectInfo = ({ status, projectData }) => {
             <input
               type="text"
               id="project-simple"
+              name="shortTitle"
               maxLength="5"
               className="s-text"
-              value={shortTitleValue || ""}
-              onChange={handleShortTitleChange}
+              value={formValue.shortTitle || ""}
+              onChange={handleValueChange}
             />
             <div className="xs-text gray-color">{formData.limit5}</div>
 
@@ -85,10 +114,11 @@ const EditProjectInfo = ({ status, projectData }) => {
             </label>
             <textarea
               id="project-detail-info"
+              name="info"
               maxLength="70"
               className="s-text"
-              value={infoValue || ""}
-              onChange={handleInfoChange}
+              value={formValue.info || ""}
+              onChange={handleValueChange}
             ></textarea>
             <div className="xs-text gray-color">{formData.limit70}</div>
           </form>
