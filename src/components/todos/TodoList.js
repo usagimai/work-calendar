@@ -103,11 +103,13 @@ const TodoList = ({ findMethod, status, setStatus }) => {
           <div className="todo-detail-schedule">
             <div className="font-decoration-long"></div>
             <div className="schedule-group">
-              <div className="schedule-title center s-text">完成期限</div>
+              <div className="schedule-title center s-text first-column">
+                完成期限
+              </div>
               <div className="schedule-title center s-text">待辦事項</div>
               <div className="schedule-title center s-text">執行日期</div>
               <div className="schedule-title center s-text">實際完成日</div>
-              <div></div>
+              <div className="schedule-title last-column"></div>
               {todoList.map((todo) => {
                 return (
                   <TodoListOne

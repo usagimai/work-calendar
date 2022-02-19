@@ -84,11 +84,13 @@ const ProjectDetailSchedule = ({
               setIsWorkBoxOpen={setIsWorkBoxOpen}
             />
             <div className="schedule-group">
-              <div className="schedule-title center s-text">完成期限</div>
+              <div className="schedule-title center s-text first-column">
+                完成期限
+              </div>
               <div className="schedule-title center s-text">工作細項</div>
               <div className="schedule-title center s-text">執行日期</div>
               <div className="schedule-title center s-text">實際完成日</div>
-              <div></div>
+              <div className="schedule-title last-column"></div>
               {status.project === "view" &&
                 projectData &&
                 projectData.works[0] &&

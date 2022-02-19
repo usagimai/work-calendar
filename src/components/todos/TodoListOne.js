@@ -10,11 +10,20 @@ const TodoListOne = ({ todo, status, setStatus }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [smallCalendarOpen, setSmallCalendarOpen] = useState(false);
   const [tdEditWorkOpen, setTdEditWorkOpen] = useState(false);
+  const [todoHovered, setTodoHovered] = useState();
 
   const handleEditTDWork = () => {
     setTdEditWorkOpen(true);
     setStatus({ ...status, work: "edit-td" });
     blockScroll();
+  };
+
+  const handleMouseEnter = (e) => {
+    setTodoHovered(e.target.getAttribute("data-id"));
+  };
+
+  const handleMouseLeave = (e) => {
+    setTodoHovered();
   };
 
   useEffect(() => {
@@ -41,9 +50,34 @@ const TodoListOne = ({ todo, status, setStatus }) => {
           todo={todo}
         />
       )}
-      <div className="m-text center">{todo.deadline}</div>
-      <div className="m-text">{todo.content}</div>
-      <div className="m-text center edit-color pointer small-calendar-container">
+      <div
+        className={`schedule-content m-text center first-column ${
+          todoHovered === todo.id ? "show-bg" : ""
+        }`}
+        data-id={todo.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {todo.deadline}
+      </div>
+      <div
+        className={`schedule-content m-text ${
+          todoHovered === todo.id ? "show-bg" : ""
+        }`}
+        data-id={todo.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {todo.content}
+      </div>
+      <div
+        className={`schedule-content m-text center edit-color pointer small-calendar-container ${
+          todoHovered === todo.id ? "show-bg" : ""
+        }`}
+        data-id={todo.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <span onClick={() => setSmallCalendarOpen(true)}>檢視月曆</span>
         {smallCalendarOpen && (
           <Calendar
@@ -56,8 +90,25 @@ const TodoListOne = ({ todo, status, setStatus }) => {
           />
         )}
       </div>
-      <div className="m-text center">{todo.finishDate}</div>
-      <div onClick={handleEditTDWork}>
+      <div
+        className={`schedule-content m-text center ${
+          todoHovered === todo.id ? "show-bg" : ""
+        }`}
+        data-id={todo.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {todo.finishDate}
+      </div>
+      <div
+        className={`schedule-content last-column ${
+          todoHovered === todo.id ? "show-bg" : ""
+        }`}
+        data-id={todo.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleEditTDWork}
+      >
         <EditPen text="編輯" />
       </div>
 

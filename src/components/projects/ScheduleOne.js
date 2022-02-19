@@ -18,6 +18,7 @@ const ScheduleOne = ({
   const [blockScroll, allowScroll] = useScrollBlock();
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
   const [smallCalendarOpen, setSmallCalendarOpen] = useState(false);
+  const [workHovered, setWorkHovered] = useState();
 
   const handleEditPJWork = () => {
     if (status.project !== "view") {
@@ -26,6 +27,14 @@ const ScheduleOne = ({
     setPjEditWorkOpen(true);
     setStatus({ ...status, work: "edit-pj" });
     blockScroll();
+  };
+
+  const handleMouseEnter = (e) => {
+    setWorkHovered(e.target.getAttribute("data-id"));
+  };
+
+  const handleMouseLeave = (e) => {
+    setWorkHovered();
   };
 
   useEffect(() => {
@@ -57,9 +66,34 @@ const ScheduleOne = ({
         />
       )}
 
-      <div className="m-text center">{work.deadline}</div>
-      <div className="m-text">{work.content}</div>
-      <div className="m-text center edit-color pointer small-calendar-container">
+      <div
+        className={`schedule-content m-text center first-column ${
+          workHovered === work.id ? "show-bg" : ""
+        }`}
+        data-id={work.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {work.deadline}
+      </div>
+      <div
+        className={`schedule-content m-text ${
+          workHovered === work.id ? "show-bg" : ""
+        }`}
+        data-id={work.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {work.content}
+      </div>
+      <div
+        className={`schedule-content m-text center edit-color pointer small-calendar-container ${
+          workHovered === work.id ? "show-bg" : ""
+        }`}
+        data-id={work.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <span onClick={() => setSmallCalendarOpen(true)}>檢視月曆</span>
         {smallCalendarOpen && (
           <Calendar
@@ -72,8 +106,25 @@ const ScheduleOne = ({
           />
         )}
       </div>
-      <div className="m-text center">{work.finishDate}</div>
-      <div onClick={handleEditPJWork}>
+      <div
+        className={`schedule-content m-text center ${
+          workHovered === work.id ? "show-bg" : ""
+        }`}
+        data-id={work.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {work.finishDate}
+      </div>
+      <div
+        className={`schedule-content last-column ${
+          workHovered === work.id ? "show-bg" : ""
+        }`}
+        data-id={work.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleEditPJWork}
+      >
         <EditPen text="編輯" />
       </div>
       {smallCalendarOpen && <div className="transparent-backdrop"></div>}
