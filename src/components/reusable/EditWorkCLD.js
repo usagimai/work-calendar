@@ -316,7 +316,13 @@ const EditWorkCLD = ({
                           </div>
                         );
                       }}
-                      plugins={[<DatePanel position={"right"} sort="date" />]}
+                      plugins={[
+                        <DatePanel
+                          position="right"
+                          sort="date"
+                          header="日期可複選"
+                        />,
+                      ]}
                     />
                   ) : (
                     <DatePicker
@@ -331,7 +337,13 @@ const EditWorkCLD = ({
                           </div>
                         );
                       }}
-                      plugins={[<DatePanel position={"right"} sort="date" />]}
+                      plugins={[
+                        <DatePanel
+                          position="right"
+                          sort="date"
+                          header="日期可複選"
+                        />,
+                      ]}
                     />
                   )}
                 </div>

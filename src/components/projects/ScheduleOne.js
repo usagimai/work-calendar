@@ -102,7 +102,14 @@ const ScheduleOne = ({
             showOtherDays
             readOnly
             className="small-calendar teal"
-            plugins={[<DatePanel position={"right"} sort="date" />]}
+            plugins={[
+              <DatePanel
+                position="right"
+                sort="date"
+                removeButton={false}
+                header="日期一覽"
+              />,
+            ]}
           />
         )}
       </div>
