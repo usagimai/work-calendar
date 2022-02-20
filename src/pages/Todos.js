@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
+import ScrollTop from "../components/reusable/ScrollTop";
 import FindTodos from "../components/todos/FindTodos";
 import TodoList from "../components/todos/TodoList";
 import { app, auth } from "../firebase-config";
@@ -35,6 +36,7 @@ const Todos = ({ status, setStatus }) => {
     <div className="main-frame">
       <FindTodos findMethod={findMethod} setFindMethod={setFindMethod} />
       <TodoList findMethod={findMethod} status={status} setStatus={setStatus} />
+      <ScrollTop />
     </div>
   );
 };

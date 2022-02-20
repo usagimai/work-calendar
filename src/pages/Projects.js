@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
 import EmptyMessage from "../components/reusable/EmptyMessage";
+import ScrollTop from "../components/reusable/ScrollTop";
 import ProjectList from "../components/projects/ProjectList";
 import ProjectDetail from "../components/projects/ProjectDetail";
 import EditProjectDetail from "../components/projects/EditProjectDetail";
@@ -74,6 +75,7 @@ const Projects = ({ status, setStatus }) => {
           message2="如欲新增，請透過左方圖示進行"
         />
       )}
+      <ScrollTop />
     </div>
   );
 };

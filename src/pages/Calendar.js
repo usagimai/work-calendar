@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
+import ScrollTop from "../components/reusable/ScrollTop";
 import Weather from "../components/calendar/Weather";
 import CalendarMonth from "../components/calendar/CalendarMonth";
 import { app, auth } from "../firebase-config";
@@ -30,6 +31,7 @@ const Calendar = ({ status, setStatus }) => {
       <Weather />
       <div className="hr-1"></div>
       <CalendarMonth status={status} setStatus={setStatus} />
+      <ScrollTop />
     </div>
   );
 };
