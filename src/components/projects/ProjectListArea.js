@@ -57,7 +57,13 @@ const ProjectListArea = ({
       if (findMethod.search === "") {
         return project;
       } else {
-        return project.title.match(new RegExp(findMethod.search, "gi"));
+        const searchTitle = project.title.match(
+          new RegExp(findMethod.search, "gi")
+        );
+        const searchShortTitle = project.shortTitle.match(
+          new RegExp(findMethod.search, "gi")
+        );
+        return searchTitle || searchShortTitle;
       }
     });
     setProjectList(searchResult);
