@@ -52,8 +52,10 @@
     }
   }
   .schedule-content {
+    display: flex;
     height: 6.6rem;
     padding: 2rem;
+    align-items: center;
   }
   .first-column {
     padding: 2rem 2rem 2rem 0;
