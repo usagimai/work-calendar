@@ -1,19 +1,25 @@
-import { collection, getDocs } from "firebase/firestore";
-import { app, db } from "../firebase-config";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { app, db, auth } from "../firebase-config";
 
 //Action Creator
 export const loadProjects = () => async (dispatch) => {
-  const dbRef = collection(db, "projects");
-  const projectData = await getDocs(dbRef);
-  const projectArr = projectData.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-  }));
+  const user = auth.currentUser;
 
-  dispatch({
-    type: "FETCH_PROJECTS",
-    payload: {
-      all: projectArr,
-    },
-  });
+  if (user) {
+    const dbRef = collection(db, "projects");
+    const projectQuery = query(dbRef, where("email", "==", user.email));
+    const projectData = await getDocs(projectQuery);
+
+    const projectArr = projectData.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    dispatch({
+      type: "FETCH_PROJECTS",
+      payload: {
+        all: projectArr,
+      },
+    });
+  }
 };
