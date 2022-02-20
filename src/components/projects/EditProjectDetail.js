@@ -28,6 +28,11 @@ const EditProjectDetail = ({
   const dispatch = useDispatch();
 
   const [alertMessage, setAlertMessage] = useState(false);
+  const [blankAlert, setBlankAlert] = useState({
+    title: false,
+    shortTitle: false,
+    planFinishDate: false,
+  });
   const [isWorkBoxOpen, setIsWorkBoxOpen] = useState(false);
   const [editCancel, setEditCancel] = useState(false);
   const [projectData, setProjectData] = useState();
@@ -63,6 +68,55 @@ const EditProjectDetail = ({
   };
 
   const handleSubmit = () => {
+    //若有必填欄位未填，顯示提醒訊息 & 該欄位以紅色提示
+    if (!formValue.title) {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          title: true,
+        };
+      });
+    } else {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          title: false,
+        };
+      });
+    }
+
+    if (!formValue.shortTitle) {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          shortTitle: true,
+        };
+      });
+    } else {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          shortTitle: false,
+        };
+      });
+    }
+
+    if (formValue.planFinishDate === "待設定") {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          planFinishDate: true,
+        };
+      });
+    } else {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          planFinishDate: false,
+        };
+      });
+    }
+
     if (
       !formValue.title ||
       !formValue.shortTitle ||
@@ -141,6 +195,7 @@ const EditProjectDetail = ({
         editCancel={editCancel}
         setEditCancel={setEditCancel}
         isWorkBoxOpen={isWorkBoxOpen}
+        blankAlert={blankAlert}
       />
       <ProjectDetailSchedule
         status={status}
@@ -152,6 +207,7 @@ const EditProjectDetail = ({
         setEditCancel={setEditCancel}
         isWorkBoxOpen={isWorkBoxOpen}
         setIsWorkBoxOpen={setIsWorkBoxOpen}
+        blankAlert={blankAlert}
       />
       {status.project === "edit" && (
         <EditProjectFinal

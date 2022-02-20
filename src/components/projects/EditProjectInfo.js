@@ -11,6 +11,7 @@ const EditProjectInfo = ({
   editCancel,
   setEditCancel,
   isWorkBoxOpen,
+  blankAlert,
 }) => {
   const [title, setTitle] = useState();
 
@@ -100,7 +101,9 @@ const EditProjectInfo = ({
               id="project-name"
               name="title"
               maxLength="20"
-              className="s-text"
+              className={`s-text ${
+                blankAlert.title ? "blank-alert" : undefined
+              }`}
               value={formValue.title || ""}
               onChange={handleValueChange}
             />
@@ -114,7 +117,9 @@ const EditProjectInfo = ({
               id="project-simple"
               name="shortTitle"
               maxLength="5"
-              className="s-text"
+              className={`s-text ${
+                blankAlert.shortTitle ? "blank-alert" : undefined
+              }`}
               value={formValue.shortTitle || ""}
               onChange={handleValueChange}
             />

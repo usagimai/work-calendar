@@ -15,6 +15,7 @@ const ProjectDetailSchedule = ({
   setEditCancel,
   isWorkBoxOpen,
   setIsWorkBoxOpen,
+  blankAlert,
 }) => {
   //依據status呈現不同內容
   useEffect(() => {
@@ -65,10 +66,10 @@ const ProjectDetailSchedule = ({
       default:
         break;
     }
-  }, [projectData, status]);
 
-  //工作細項排序 (完成期限遠→近)
-  sortWork(projectData);
+    //工作細項排序 (完成期限遠→近)
+    sortWork(projectData);
+  }, [projectData, status]);
 
   return (
     <>
@@ -86,6 +87,7 @@ const ProjectDetailSchedule = ({
               setEditCancel={setEditCancel}
               isWorkBoxOpen={isWorkBoxOpen}
               setIsWorkBoxOpen={setIsWorkBoxOpen}
+              blankAlert={blankAlert}
             />
             <div className="schedule-group">
               <div className="schedule-title center s-text first-column">

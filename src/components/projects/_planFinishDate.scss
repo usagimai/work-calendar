@@ -15,4 +15,8 @@
   .s-text {
     color: $primary-dark;
   }
+  .blank-alert {
+    padding: 0.5rem;
+    border: solid 0.1rem $special-red;
+  }
 }

@@ -16,6 +16,7 @@ const PlanFinishDate = ({
   setEditCancel,
   isWorkBoxOpen,
   setIsWorkBoxOpen,
+  blankAlert,
 }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [pjEditWorkOpen, setPjEditWorkOpen] = useState(false);
@@ -122,7 +123,12 @@ const PlanFinishDate = ({
               className="teal"
               render={(value, openCalendar) => {
                 return (
-                  <div onClick={openCalendar} className="datepicker-container">
+                  <div
+                    onClick={openCalendar}
+                    className={`datepicker-container ${
+                      blankAlert.planFinishDate ? "blank-alert" : undefined
+                    }`}
+                  >
                     <SelectCalendar text="選擇" />
                   </div>
                 );

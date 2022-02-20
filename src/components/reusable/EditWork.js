@@ -34,6 +34,11 @@ const EditWork = ({
 
   const [title, setTitle] = useState();
   const [alertMessage, setAlertMessage] = useState(false);
+  const [blankAlert, setBlankAlert] = useState({
+    deadline: false,
+    todoDate: false,
+    content: false,
+  });
   const [deleteWorkBoxOpen, setDeleteWorkBoxOpen] = useState(false);
   const [otherWorksArr, setOtherWorksArr] = useState();
   const [WorkEditedArr, setWorkEditedArr] = useState();
@@ -102,7 +107,55 @@ const EditWork = ({
 
   //點「儲存」後的處理流程
   const handleWorkSubmit = () => {
-    //若有必填但未填的項目，顯示alert message
+    //若有必填欄位未填，顯示提醒訊息 & 該欄位以紅色提示
+    if (workValue.deadline === "待設定") {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          deadline: true,
+        };
+      });
+    } else {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          deadline: false,
+        };
+      });
+    }
+
+    if (!workValue.todoDate || workValue.todoDate.length === 0) {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          todoDate: true,
+        };
+      });
+    } else {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          todoDate: false,
+        };
+      });
+    }
+
+    if (!workValue.content) {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          content: true,
+        };
+      });
+    } else {
+      setBlankAlert((prevValue) => {
+        return {
+          ...prevValue,
+          content: false,
+        };
+      });
+    }
+
     if (
       workValue.deadline === "待設定" ||
       !workValue.todoDate ||
@@ -374,7 +427,12 @@ const EditWork = ({
                       className="teal"
                       render={(value, openCalendar) => {
                         return (
-                          <div onClick={openCalendar}>
+                          <div
+                            onClick={openCalendar}
+                            className={
+                              blankAlert.deadline ? "blank-alert" : undefined
+                            }
+                          >
                             <SelectCalendar text="選擇" />
                           </div>
                         );
@@ -406,7 +464,12 @@ const EditWork = ({
                       className="teal"
                       render={(value, openCalendar) => {
                         return (
-                          <div onClick={openCalendar}>
+                          <div
+                            onClick={openCalendar}
+                            className={
+                              blankAlert.todoDate ? "blank-alert" : undefined
+                            }
+                          >
                             <SelectCalendar text="選擇" />
                           </div>
                         );
@@ -436,7 +499,9 @@ const EditWork = ({
                   type="text"
                   name="content"
                   maxLength="30"
-                  className="s-text"
+                  className={`s-text ${
+                    blankAlert.content ? "blank-alert" : undefined
+                  }`}
                   value={workValue.content}
                   onChange={handleValueChange}
                 />

@@ -34,6 +34,9 @@
         color: $font-color;
         border: solid 0.1rem $primary-dark;
       }
+      input.blank-alert {
+        border: solid 0.1rem $special-red;
+      }
       textarea {
         height: 10rem;
         resize: none;
@@ -44,6 +47,10 @@
       }
       .limit {
         transform: translateY(-50%);
+      }
+      .blank-alert {
+        padding: 0.5rem;
+        border: solid 0.1rem $special-red;
       }
     }
     .edit-work-final {
