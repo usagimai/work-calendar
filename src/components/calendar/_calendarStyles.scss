@@ -3,7 +3,7 @@ $event-border: none;
 $event-outline: none;
 $event-color: #37383c;
 
-$today-highlight-bg: #fff8dd;
+$today-highlight-bg: #f8e8a7;
 
 div.rbc-header {
   padding: 0.2rem 0;
@@ -24,4 +24,28 @@ div.rbc-overlay-header::after {
 
 div.rbc-event.rbc-event-continues-after {
   margin-bottom: 0.3rem;
+}
+
+.rbc-event.event-1 {
+  background-color: $special-red;
+  color: white;
+  &.rbc-selected {
+    background-color: darken($special-red, 10%);
+  }
+}
+
+.rbc-event.event-3 {
+  background-color: $special-orange;
+  color: white;
+  &.rbc-selected {
+    background-color: darken($special-orange, 10%);
+  }
+}
+
+.rbc-event.event-10 {
+  background-color: $bg-gray;
+  color: $font-gray;
+  &.rbc-selected {
+    background-color: darken($bg-gray, 10%);
+  }
 }

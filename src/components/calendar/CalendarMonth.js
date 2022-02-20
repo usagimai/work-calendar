@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 import EditWorkCLD from "../reusable/EditWorkCLD";
 import useScrollBlock from "../../utils/useScrollBlock";
+import { sortEvent } from "../../utils/sortUtils";
 import RBCToolbar from "./CalendarToolbar";
 import "moment/locale/zh-tw";
 
@@ -47,7 +48,7 @@ const CalendarMonth = ({ status, setStatus }) => {
           title: `【${project.shortTitle}】${work.content}`,
           start: moment(`${date}`).toDate(),
           end: moment(`${date}`).toDate(),
-          resource: ["projects", project.id],
+          resource: ["projects", project.id, work.id, work.deadline],
         }))
       )
     );
@@ -67,7 +68,7 @@ const CalendarMonth = ({ status, setStatus }) => {
         title: todo.content,
         start: moment(`${date}`).toDate(),
         end: moment(`${date}`).toDate(),
-        resource: ["todos", todo.id],
+        resource: ["todos", todo.id, "", todo.deadline],
       }))
     );
     const todoEvents = [];
@@ -75,8 +76,10 @@ const CalendarMonth = ({ status, setStatus }) => {
       todoEvents.push(...oneTdEvent)
     );
 
-    //兩者資料整合在一起
-    setCalendarEvents([...projectEvents, ...todoEvents]);
+    //兩者資料整合在一起，並進行排序
+    const allEvents = [...projectEvents, ...todoEvents];
+    // setCalendarEvents(allEvents);
+    setCalendarEvents(sortEvent(allEvents, filteredProjects, todos));
   }, [projects, todos]);
 
   return (
@@ -108,6 +111,9 @@ const CalendarMonth = ({ status, setStatus }) => {
           },
         }}
         style={{ height: "92vh", width: "100%" }}
+        eventPropGetter={(event) => ({
+          className: "event-" + event.resource[4],
+        })}
       />
     </>
   );

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import PlanFinishDate from "./PlanFinishDate";
 import ScheduleOne from "./ScheduleOne";
 import NoSchedule from "./NoSchedule";
+import { sortWork } from "../../utils/sortUtils";
 
 const ProjectDetailSchedule = ({
   projectData,
@@ -65,6 +66,9 @@ const ProjectDetailSchedule = ({
         break;
     }
   }, [projectData, status]);
+
+  //工作細項排序 (完成期限遠→近)
+  sortWork(projectData);
 
   return (
     <>
