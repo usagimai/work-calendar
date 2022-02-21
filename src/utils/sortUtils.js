@@ -88,3 +88,15 @@ export const sortWork = (projectData) => {
 
   return sortedWorks;
 };
+
+export const sortWorkForm = (formValue) => {
+  //排序專案工作細項完成期限遠→近
+  const sortedWorksForm = formValue.works.sort((a, b) => {
+    return (
+      moment(b.deadline).diff(moment(new Date()).format("YYYY/MM/DD"), "days") -
+      moment(a.deadline).diff(moment(new Date()).format("YYYY/MM/DD"), "days")
+    );
+  });
+
+  return sortedWorksForm;
+};

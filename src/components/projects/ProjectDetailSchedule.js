@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import PlanFinishDate from "./PlanFinishDate";
 import ScheduleOne from "./ScheduleOne";
 import NoSchedule from "./NoSchedule";
 import { sortWork } from "../../utils/sortUtils";
+import { sortWorkForm } from "../../utils/sortUtils";
 
 const ProjectDetailSchedule = ({
   projectData,
@@ -17,11 +18,20 @@ const ProjectDetailSchedule = ({
   setIsWorkBoxOpen,
   blankAlert,
 }) => {
+  const [sortedWorks, setSortedWorks] = useState();
+  const [sortedWorksForm, setSortedWorksForm] = useState();
+
   //依據status呈現不同內容
   useEffect(() => {
     if (!projectData || !status) return;
 
     switch (status.project) {
+      case "view":
+        //工作細項排序 (完成期限遠→近)
+        sortWork(projectData);
+        setSortedWorks(projectData.works);
+        break;
+
       case "create":
         //點開「新增工作細項」或「編輯工作細項」的狀況 (不變動formValue的資料)
         if (isWorkBoxOpen) {
@@ -66,10 +76,21 @@ const ProjectDetailSchedule = ({
       default:
         break;
     }
-
-    //工作細項排序 (完成期限遠→近)
-    sortWork(projectData);
   }, [projectData, status]);
+
+  useEffect(() => {
+    switch (status.project) {
+      case "create":
+      case "edit":
+        //工作細項排序 (完成期限遠→近)
+        sortWorkForm(formValue);
+        setSortedWorksForm(formValue.works);
+        break;
+
+      default:
+        break;
+    }
+  }, [formValue]);
 
   return (
     <>
@@ -98,9 +119,8 @@ const ProjectDetailSchedule = ({
               <div className="schedule-title center s-text">實際完成日</div>
               <div className="schedule-title last-column"></div>
               {status.project === "view" &&
-                projectData &&
-                projectData.works[0] &&
-                projectData.works.map((work) => (
+                sortedWorks &&
+                sortedWorks.map((work) => (
                   <ScheduleOne
                     key={work.id}
                     work={work}
@@ -110,8 +130,9 @@ const ProjectDetailSchedule = ({
                   />
                 ))}
               {status.project !== "view" &&
-                formValue.works.length > 0 &&
-                formValue.works.map((work) => (
+                sortedWorksForm &&
+                sortedWorksForm.length > 0 &&
+                sortedWorksForm.map((work) => (
                   <ScheduleOne
                     key={work.id}
                     work={work}
