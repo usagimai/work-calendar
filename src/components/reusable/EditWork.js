@@ -5,6 +5,7 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import moment from "moment";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 
+//reusable components
 import Backdrop from "./Backdrop";
 import { IconSelector } from "./IconSelector";
 import { DecorationTitle } from "./DecorationTitle";
@@ -12,6 +13,7 @@ import { SelectCalendar } from "./EditGroup";
 import { SmallButtonDark } from "./ButtonCollection";
 import AlertMessage from "./AlertMessage";
 import { Confirm } from "./Confirm";
+//others
 import { formData } from "../../data";
 import { loadProjects } from "../../actions/projectsAction";
 import { loadTodos } from "../../actions/todosAction";

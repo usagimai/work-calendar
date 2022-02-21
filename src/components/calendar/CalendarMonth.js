@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 import moment_timezone from "moment-timezone";
+import "moment/locale/zh-tw";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useSelector } from "react-redux";
 
@@ -8,7 +9,6 @@ import EditWorkCLD from "../reusable/EditWorkCLD";
 import useScrollBlock from "../../utils/useScrollBlock";
 import { sortEvent } from "../../utils/sortUtils";
 import RBCToolbar from "./CalendarToolbar";
-import "moment/locale/zh-tw";
 
 const localizer = momentLocalizer(moment_timezone);
 
