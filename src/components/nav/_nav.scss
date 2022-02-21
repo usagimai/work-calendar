@@ -92,3 +92,17 @@
     color: $primary-light;
   }
 }
+
+@media (max-width: 1280px) {
+  .nav {
+    .nav-content {
+      justify-content: center;
+    }
+    .menu {
+      display: none;
+    }
+    .logout {
+      display: none;
+    }
+  }
+}

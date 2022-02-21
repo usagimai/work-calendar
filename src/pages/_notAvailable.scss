@@ -1,0 +1,21 @@
+.not-available {
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  > div:nth-child(1) {
+    height: 8vh;
+    width: 100%;
+    margin: auto;
+    background: $primary-dark;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  > div:nth-child(2) {
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

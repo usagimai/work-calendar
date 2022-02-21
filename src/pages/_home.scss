@@ -28,3 +28,12 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .home {
+    .bg-img-1,
+    .bg-img-2 {
+      display: none;
+    }
+  }
+}

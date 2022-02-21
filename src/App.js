@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import "./app.scss";
 import "./teal.css";
 //components
+import NotAvailable from "./pages/NotAvailable";
 import Nav from "./components/nav/Nav";
 import Home from "./pages/Home";
 import Calendar from "./pages/Calendar";
@@ -22,6 +23,15 @@ function App() {
 
   const [user, setUser] = useState();
   const [status, setStatus] = useState({ page: "", project: "", work: "" });
+  const [isSmallDevice, setIsSmallDevice] = useState(false);
+
+  const handleNotAvailable = () => {
+    if (window.innerWidth < 1280) {
+      setIsSmallDevice(true);
+    } else {
+      setIsSmallDevice(false);
+    }
+  };
 
   //使用Firebase的功能監聽使用者是否登入(若為登入，會從Firebase接收到該使用者的資訊，包含email、UID等)
   useEffect(() => {
@@ -38,8 +48,18 @@ function App() {
     }
   }, [user]);
 
+  //監聽螢幕尺寸變動 (寬度小於1280px不支援)
+  useEffect(() => {
+    window.addEventListener("resize", handleNotAvailable, {
+      passive: true,
+    });
+    return () => window.removeEventListener("resize", handleNotAvailable);
+  }, []);
+
   return (
     <>
+      {isSmallDevice && <NotAvailable />}
+
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
