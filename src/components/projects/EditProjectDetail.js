@@ -3,14 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 
+//reusable components
 import {
   MediumButtonDark,
   MediumButtonLight,
 } from "../reusable/ButtonCollection";
 import AlertMessage from "../reusable/AlertMessage";
+//components
 import EditProjectInfo from "./EditProjectInfo";
 import ProjectDetailSchedule from "./ProjectDetailSchedule";
 import EditProjectFinal from "./EditProjectFinal";
+//others
 import { loadProjects } from "../../actions/projectsAction";
 import { app, db, auth } from "../../firebase-config";
 
@@ -139,6 +142,7 @@ const EditProjectDetail = ({
           setIsCreateNewPJ(true);
           dispatch(loadProjects());
           setCreatePJClicked(false);
+          setEditPJClicked(false);
         };
 
         setDoc(doc(db, "projects", `${today}_${time}`), {
