@@ -67,7 +67,7 @@ const ScheduleOne = ({
       )}
 
       <div
-        className={`schedule-content m-text center first-column ${
+        className={`schedule-content m-text first-column ${
           workHovered === work.id ? "show-bg" : ""
         }`}
         data-id={work.id}

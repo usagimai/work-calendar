@@ -51,7 +51,7 @@ const TodoListOne = ({ todo, status, setStatus }) => {
         />
       )}
       <div
-        className={`schedule-content m-text center first-column ${
+        className={`schedule-content m-text first-column ${
           todoHovered === todo.id ? "show-bg" : ""
         }`}
         data-id={todo.id}

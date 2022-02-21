@@ -54,16 +54,15 @@
   .schedule-content {
     display: flex;
     height: 6.6rem;
-    padding: 2rem;
+    padding: 0 2rem;
     align-items: center;
+    line-height: 3rem;
   }
   .first-column {
-    padding: 2rem 2rem 2rem 0;
+    padding: 0 2rem 0 0;
   }
   .last-column {
-    display: flex;
     padding: 0 0 0 2rem;
-    align-items: center;
   }
 
   .show-bg {
