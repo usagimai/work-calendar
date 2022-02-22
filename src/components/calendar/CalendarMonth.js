@@ -34,8 +34,7 @@ const CalendarMonth = ({ status, setStatus }) => {
   };
 
   useEffect(() => {
-    if (!projects || projects.length === 0 || !todos || todos.length === 0)
-      return;
+    if (!projects || !todos) return;
 
     //將projects的工作細項整理成行事曆的資料格式-1 (排除尚未設定工作細項的專案)
     const filteredProjects = projects.filter((project) => {
