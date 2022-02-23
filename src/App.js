@@ -26,7 +26,7 @@ function App() {
   const [isSmallDevice, setIsSmallDevice] = useState(false);
 
   const handleNotAvailable = () => {
-    if (window.innerWidth < 1280) {
+    if (window.matchMedia("(max-width: 1280px)").matches) {
       setIsSmallDevice(true);
     } else {
       setIsSmallDevice(false);
