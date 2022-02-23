@@ -50,14 +50,14 @@ function App() {
 
   //初次進入頁面進行判斷 & 監聽螢幕尺寸變動 (寬度小於1280px不支援)
   useEffect(() => {
-    if (window.matchMedia("(max-width: 1280px)").matches) {
+    if (window.innerWidth < 1280) {
       setIsSmallDevice(true);
     } else {
       setIsSmallDevice(false);
     }
 
     const handleNotAvailable = () => {
-      if (window.matchMedia("(max-width: 1280px)").matches) {
+      if (window.innerWidth < 1280) {
         setIsSmallDevice(true);
       } else {
         setIsSmallDevice(false);
@@ -73,23 +73,26 @@ function App() {
   return (
     <>
       {isSmallDevice && <NotAvailable />}
-
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/calendar"
-          element={<Calendar status={status} setStatus={setStatus} />}
-        />
-        <Route
-          path="/projects/"
-          element={<Projects status={status} setStatus={setStatus} />}
-        />
-        <Route
-          path="/todos"
-          element={<Todos status={status} setStatus={setStatus} />}
-        />
-      </Routes>
+      {!isSmallDevice && (
+        <>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/calendar"
+              element={<Calendar status={status} setStatus={setStatus} />}
+            />
+            <Route
+              path="/projects/"
+              element={<Projects status={status} setStatus={setStatus} />}
+            />
+            <Route
+              path="/todos"
+              element={<Todos status={status} setStatus={setStatus} />}
+            />
+          </Routes>
+        </>
+      )}
     </>
   );
 }
