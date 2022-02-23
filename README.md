@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+## 【作品說明】
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### ● 名稱：
 
-## Available Scripts
+工作行事曆 (Work Calendar)
 
-In the project directory, you can run:
+### ● 簡介：
 
-### `npm start`
+透過「行事曆」及「專案/其他」兩個面向進行工作規劃的 APP
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ● 使用技術/工具：
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React.js、SASS、Redux、Axios、Firebase 驗證系統、資料庫與託管功能、月曆&日期選擇套件
 
-### `npm test`
+### ● 特色：
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. 依工作類型，透過「專案」或「其他」建立工作 (「專案」適用於可拆分成多個工作細項的工作類型；「其他」適用於單次的待辦事項)
+2. 可於行事曆確認每日工作清單，工作會以完成期限近 → 遠之順序排列，並以不同顏色標示，藉此提醒執行優先順序 (完成期限早於等於今天的工作將顯示紅色、完成期限是明天的工作將顯示橘色，已完成之項目將標示為灰色，並顯示於當日工作清單最後面)
+3. 行事曆使用「react-big-calendar」套件、日期挑選使用「react-multi-date-picker」套件、時間管理使用「moment.js」套件
+4. 使用 Axios 串接中央氣象局之天氣預報資料；使用者選擇城市後，城市資訊被儲存於 local storage，將做為今後預設顯示的城市
 
-### `npm run build`
+### ● 連結：
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[[成品]](https://work-calendar-2e9b0.web.app/)
+[[設計稿]](https://www.figma.com/proto/S7efH9oWSc8TWTipCaAC5D/Work-Calendar?node-id=2%3A2)
