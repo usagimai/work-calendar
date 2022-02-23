@@ -6,7 +6,7 @@ import { BigButtonDark } from "../reusable/ButtonCollection";
 import { IconSelector } from "../reusable/IconSelector";
 import { app, auth } from "../../firebase-config";
 
-const Login = ({ allowScroll }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,7 +16,7 @@ const Login = ({ allowScroll }) => {
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => handleSuccess())
+      .then(() => navigate("./calendar", { replace: true }))
       .catch((error) => {
         switch (error.code) {
           case "auth/user-not-found":
@@ -27,11 +27,6 @@ const Login = ({ allowScroll }) => {
             return setErrorMessage("帳號或密碼錯誤");
         }
       });
-  };
-
-  const handleSuccess = () => {
-    navigate("./calendar", { replace: true });
-    allowScroll();
   };
 
   return (
