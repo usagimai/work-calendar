@@ -1,6 +1,7 @@
 .weather {
-  padding: 5rem 4rem 0 4rem;
+  padding-top: 5rem;
   display: flex;
+  justify-content: center;
   gap: 4rem;
   > div:nth-child(1) {
     display: flex;
