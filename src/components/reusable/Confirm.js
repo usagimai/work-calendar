@@ -20,7 +20,6 @@ export const Confirm = ({
   setDeleteWorkBoxOpen,
   setDeleteProjectBoxOpen,
   allowScroll,
-  blockScroll,
   todo,
   setEditWorkBoxOpen,
   projectData,
@@ -35,7 +34,6 @@ export const Confirm = ({
   const handleLogoutNavigate = () => {
     handleConfirmBoxClose();
     navigate("/", { replace: true });
-    blockScroll();
   };
 
   //確認刪除project相關
