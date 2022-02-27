@@ -13,6 +13,7 @@ const Nav = () => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const [logoutBoxOpen, setLogoutBoxOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isTestAccount, setIsTestAccount] = useState(false);
   const [menu, setMenu] = useState();
 
   const handleLogoutBoxOpen = () => {
@@ -20,10 +21,16 @@ const Nav = () => {
     blockScroll();
   };
 
+  //判斷是否登入 & 判斷是否為測試用帳號
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setVisible(true);
+        if (currentUser.email === "test@test.com") {
+          setIsTestAccount(true);
+        } else {
+          setIsTestAccount(false);
+        }
       } else {
         setVisible(false);
       }
@@ -58,7 +65,6 @@ const Nav = () => {
           confirmFor="logout"
           setLogoutBoxOpen={setLogoutBoxOpen}
           allowScroll={allowScroll}
-          blockScroll={blockScroll}
         />
       )}
 
@@ -108,6 +114,13 @@ const Nav = () => {
           </div>
         </div>
       </div>
+
+      {isTestAccount && (
+        <div className="test-account">
+          <div>測試用</div>
+          <div>帳號</div>
+        </div>
+      )}
     </>
   );
 };
